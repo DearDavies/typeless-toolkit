@@ -7,6 +7,8 @@ const root = path.join(__dirname, '..');
 const publicBuild = fs.readFileSync(path.join(root, 'build-public-release.ps1'), 'utf8');
 const localBuild = fs.readFileSync(path.join(root, 'build-release.bat'), 'utf8');
 const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
+// README.md 是英文主文档；中文版同步维护，脱敏说明两处都要在
+const readmeZh = fs.readFileSync(path.join(root, 'README.zh-CN.md'), 'utf8');
 const releaseWorkflow = fs.readFileSync(path.join(root, '.github', 'workflows', 'release.yml'), 'utf8');
 const releaseGuide = fs.readFileSync(path.join(root, '.github', 'release-guide.md'), 'utf8');
 const { releaseContent } = require('../scripts/prepare-release-notes');
@@ -40,8 +42,12 @@ test('local release initializes only missing account data as empty', () => {
 });
 
 test('release documentation describes empty first-run data', () => {
-  assert.match(readme, /公开包[^。]*空账号列表/);
-  assert.doesNotMatch(readme, /公开包[^。]*示例账号/);
+  // 主 README 是英文版：公开包以空账号列表起步
+  assert.match(readme, /empty account list/i);
+  assert.doesNotMatch(readme, /sample accounts?\b/i);
+  // 中文版同步维护同一说明
+  assert.match(readmeZh, /公开包[^。]*空账号列表/);
+  assert.doesNotMatch(readmeZh, /公开包[^。]*示例账号/);
 });
 
 test('release notes guide users to the correct downloads and safe upgrade path', () => {

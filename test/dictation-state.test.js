@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { dictationDbPath, readDictationState, createDictationWatcher, RECORDING_LOOKBACK_MS } =
+const { dictationDbPath, readDictationState, createDictationWatcher, RECORDING_LOOKBACK_MS, STALE_RECORD_MAX_MS } =
   require('../lib/dictation-state');
 
 let sqlite = null;
@@ -56,12 +56,71 @@ test('时间窗内的未完成记录判定为正在听写', { skip }, () => {
 test('时间窗外的陈旧未完成记录不会被误判为正在听写', { skip }, () => {
   const now = Date.now();
   const db = tempDb([
-    // 历史遗留:几个月前留下、始终没有 finalize 的占位行
-    { id: 'stale', status: null, created_at: iso(now - RECORDING_LOOKBACK_MS - 60000) },
+    // 历史遗留:几个月前留下、始终没有 finalize 的占位行(超出 30 分钟上界)
+    { id: 'stale', status: null, created_at: iso(now - STALE_RECORD_MAX_MS - 60000) },
     { id: 'older', status: null, created_at: iso(now - 86400_000 * 30) },
   ]);
   try {
-    assert.deepEqual(readDictationState(db, () => now), { recording: false, error: null });
+    const result = readDictationState(db, () => now);
+    assert.deepEqual(result, { recording: false, error: null });
+    // ambiguous 是非枚举属性,deepEqual 看不见它,必须单独断言。
+    // 这正是旧回归能溜过测试的原因:库里只要有任意一条历史 NULL 行,
+    // ambiguous 就为真,上层永远无法判定空闲,并误报「检测到正在听写」。
+    assert.equal(result.ambiguous, false, '历史残留不应让状态变成无法判定');
+  } finally { fs.unlinkSync(db); }
+});
+
+test('刚过回溯窗口、仍可能在进行中的未完成记录才判为歧义', { skip }, () => {
+  const now = Date.now();
+  const db = tempDb([
+    // 比 5 分钟窗口早一点,但仍在 30 分钟上界内:无法区分是超长录音还是废弃。
+    // duration 必须为 null —— 有 duration 说明录音已结束(见下一条测试)。
+    { id: 'recent-unfinished', status: null, created_at: iso(now - RECORDING_LOOKBACK_MS - 1000) },
+  ]);
+  try {
+    const result = readDictationState(db, () => now);
+    assert.equal(result.recording, false);
+    assert.equal(result.ambiguous, true, '窗口边缘的未完成记录应保守判为无法判定');
+  } finally { fs.unlinkSync(db); }
+});
+
+test('已写入 duration 的残留记录不再触发歧义', { skip }, () => {
+  // 官方在录音结束时才写 duration。误触录音会留下 duration 很小、status 仍为 null
+  // 的残留;这种行其实已经结束,若参与歧义判定会让自动切号长期失效。
+  const now = Date.now();
+  const db = tempDb([
+    { id: 'accidental-1', status: null, created_at: iso(now - 14 * 60_000), duration: 0.376 },
+    { id: 'accidental-2', status: null, created_at: iso(now - 16 * 60_000), duration: 0.168 },
+  ]);
+  try {
+    const result = readDictationState(db, () => now);
+    assert.equal(result.recording, false);
+    assert.equal(result.ambiguous, false, '有 duration 的残留说明录音已结束,不该判为无法判定');
+  } finally { fs.unlinkSync(db); }
+});
+
+test('超过 30 分钟的未完成记录一律视为废弃,不阻塞状态判定', { skip }, () => {
+  const now = Date.now();
+  const db = tempDb([
+    { id: 'way-old', status: null, created_at: iso(now - STALE_RECORD_MAX_MS - 60000) },
+  ]);
+  try {
+    const result = readDictationState(db, () => now);
+    assert.equal(result.ambiguous, false, '超过上界的记录必然是废弃占位行');
+    assert.equal(result.recording, false);
+  } finally { fs.unlinkSync(db); }
+});
+
+test('有活跃录音 ID 时不再做歧义检查,历史残留不影响录音识别', { skip }, () => {
+  const now = Date.now();
+  const db = tempDb([
+    { id: 'live', status: null, created_at: iso(now - 2000) },
+    { id: 'ancient', status: null, created_at: iso(now - 86400_000 * 90) },
+  ]);
+  try {
+    const result = readDictationState(db, () => now, 'live');
+    assert.equal(result.recording, true);
+    assert.equal(result.ambiguous, false);
   } finally { fs.unlinkSync(db); }
 });
 

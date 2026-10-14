@@ -1,10 +1,11 @@
+const { localizedContext, sourcePage } = require('./helpers/i18n');
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 
-const html = fs.readFileSync(path.join(__dirname, '..', 'manager.html'), 'utf8');
+const html = sourcePage(fs.readFileSync(path.join(__dirname, '..', 'manager.html'), 'utf8'));
 
 // Execute the real page functions with isolated UI/API doubles, never a live manager.
 function extractFunction(name) {
@@ -54,7 +55,7 @@ function harness({ confirmed = true, disabled = false, request = async () => ({ 
   const refreshes = [];
   const unexpectedActions = [];
   const timers = [];
-  const context = vm.createContext({
+  const context = vm.createContext(localizedContext({
     document: {
       getElementById(id) {
         assert.equal(id, 'resetDeviceBtn', 'manual reset must use its own button');
@@ -79,14 +80,14 @@ function harness({ confirmed = true, disabled = false, request = async () => ({ 
     async detectCurrent() { refreshes.push('current'); },
     setTimeout(...args) { timers.push(['timeout', ...args]); },
     setInterval(...args) { timers.push(['interval', ...args]); },
-  });
+  }));
   vm.runInContext(extractFunction('resetDeviceOnly'), context);
   return { context, button, confirmations, requests, notices, refreshes, unexpectedActions, timers };
 }
 
 function assertSingleReset(h) {
   assert.deepEqual(h.requests, [{
-    route: '/api/reset-device', options: { method: 'POST' }, timeout: 60000, disabled: true,
+    route: '/api/reset-device-and-sign-in', options: { method: 'POST' }, timeout: 180000, disabled: true,
   }]);
   assert.equal(h.confirmations.length, 1);
   assert.deepEqual(h.unexpectedActions, [], 'manual reset must not switch accounts or start registration');
@@ -132,14 +133,14 @@ test('cancelled reset explains its effects and preserves all state without an AP
 });
 
 test('successful manual reset posts once, refreshes accounts and current state, and releases the button', async () => {
-  const h = harness({ request: async () => ({ status: 'OK', msg: '设备已重置，可注册新账号' }) });
+  const h = harness({ request: async () => ({ status: 'OK', msg: '设备标识已重置，并已自动登录「type4@edu.jokerjia.site」（剩余 1904 字）' }) });
   await h.context.resetDeviceOnly();
   assertSingleReset(h);
   assert.deepEqual(h.refreshes, ['accounts', 'current']);
   const success = h.notices.filter(notice => notice.type === 'ok');
   assert.equal(success.length, 1);
-  assert.match(success[0].message, /设备重置/);
-  assert.match(success[0].message, /登录页/);
+  assert.match(success[0].message, /设备标识已重置/);
+  assert.match(success[0].message, /自动登录/);
   assert.doesNotMatch(success[0].message, /注册新(?:账号|号)/, 'manual reset must not reuse the old registration-oriented API message');
   assert.equal(h.notices.filter(notice => notice.type === 'err').length, 0);
 });
@@ -209,7 +210,7 @@ test('ordinary account switching uses only the switch API, never the manual rese
   const timers = [];
   const refreshes = [];
   const unexpectedActions = [];
-  const context = vm.createContext({
+  const context = vm.createContext(localizedContext({
     ACCOUNTS: [{ user_id: 'saved-account', nickname: '已有账号', snapshot_ok: true }],
     appConfirm: async () => true,
     toast() {},
@@ -223,7 +224,7 @@ test('ordinary account switching uses only the switch API, never the manual rese
     async loadAccounts() { refreshes.push('accounts'); },
     async detectCurrent() { refreshes.push('current'); },
     async refreshOnboardingStatus() { refreshes.push('onboarding'); },
-  });
+  }));
   vm.runInContext(extractFunction('switchTo'), context);
   await context.switchTo('saved-account');
   assert.deepEqual(requests, [{ route: '/api/accounts/saved-account/switch', options: { method: 'POST' } }]);

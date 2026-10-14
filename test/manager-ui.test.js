@@ -1,9 +1,10 @@
+const { localizedContext, sourcePage } = require('./helpers/i18n');
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const html = fs.readFileSync(path.join(__dirname, '..', 'manager.html'), 'utf8');
+const html = sourcePage(fs.readFileSync(path.join(__dirname, '..', 'manager.html'), 'utf8'));
 
 function group(name) {
   const start = html.indexOf(`<div class="tool-group ${name}">`);
@@ -21,9 +22,10 @@ test('keeps registration and current-account collection on home without device r
   assert.ok(system.indexOf('openRegisterWizard()') < system.indexOf('addAccount()'));
 });
 
-test('device reset has an explicit destructive confirmation and calls the existing API', () => {
+test('device reset has an explicit destructive confirmation and calls the reset-and-sign-in API', () => {
   assert.match(html, /function resetDeviceOnly\(\)[\s\S]*确认重置本机 Typeless 设备标识/);
-  assert.match(html, /resetDeviceOnly\(\)[\s\S]*apiTimed\('\/api\/reset-device',\{method:'POST'\},60000\)/);
+  // 重置后会按额度规则自动登录一个合格账号,因此走带登录的接口,超时放宽到 180 秒
+  assert.match(html, /resetDeviceOnly\(\)[\s\S]*apiTimed\('\/api\/reset-device-and-sign-in',\{method:'POST'\},180000\)/);
 });
 
 test('opens account collection when the manually detected account is not managed', () => {
@@ -38,7 +40,7 @@ test('guides managed legacy accounts through credential recapture', () => {
 test('renders effective login lifetime and a direct empty-state action', () => {
   assert.match(html, /credential_days_left/);
   assert.match(html, /登录有效期/);
-  assert.match(html, /还没有账号[\s\S]*onclick="addAccount\(\)"[\s\S]*添加当前账号/);
+  assert.match(html, /还没有账号[\s\S]*onclick=\\?"addAccount\(\)\\?"[\s\S]*添加当前账号/);
 });
 
 test('submits refresh credentials captured from Typeless', () => {
@@ -57,7 +59,7 @@ test('offers encrypted WebDAV account sync with a Nutstore preset', () => {
 
 test('cloud-only accounts can be activated on the current device', () => {
   assert.match(html, /a\.cloud_only/);
-  assert.match(html, /activateAccount\('\$\{a\.user_id\}'\)/);
+  assert.match(html, /activateAccount\('\{p0\}'\)/);
   assert.match(html, /在此设备启用/);
   assert.match(html, /\/activate/);
 });

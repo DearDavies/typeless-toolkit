@@ -9,6 +9,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const I18N = require('./lib/i18n');
 const { spawn } = require('child_process');
 const { parseBackup, mergeBundle, createBundle, createBackup } = require('./lib/account-bundle');
 const { createQuotaFetcher, createQuotaMonitor, normalizeQuotaConfig } = require('./lib/quota-monitor');
@@ -29,7 +30,7 @@ const {
   config, ROOT, TYPELESS_EXE, USERDATA_DIR, ASAR_PATH, IS_MAC,
   readAccounts, writeAccounts, readCurrentUser,
   saveSnapshot, restoreSnapshot, hasSnapshot, hasValidSnapshot, inspectSnapshot,
-  killTypeless, launchTypeless, withSilentLaunch, isTypelessRunning, resetDevice,
+  killTypeless, launchTypeless, withSilentLaunch, isTypelessRunning, resetDevice, clearDeviceIdentity, clearLoginResidue,
   createTypelessAppBackup, createTypelessAppStaging, restoreTypelessAppBackup,
   discardTypelessAppBackup, verifyTypelessAppSignature,
   toolkitAppManagementState, markToolkitAppManagementAuthorized,
@@ -49,6 +50,7 @@ const {
 } = C;
 
 const PORT = config.manager_port;
+const uiPreferences = I18N.createPreferences(ROOT);
 const ACCOUNT_STATUS_CONCURRENCY = 3;
 const TYPELESS_APP = TYPELESS_EXE ? String(TYPELESS_EXE).split('/Contents/')[0] : '';
 const AUTO_SYNC_INTERVAL_MS = 15 * 60 * 1000;
@@ -760,7 +762,18 @@ async function switchToAccountSnapshot(id, options = {}) {
       catch (e) { log('[switch] 保存当前号快照跳过:', e.message); }
     }
   } catch (e) {}
-  killTypeless(); await sleep(1500);
+  killTypeless();
+  // 轮询等进程真正退出,而不是无条件死等 1.5 秒:多数机器 300~600ms 内就退干净了。
+  {
+    const deadline = Date.now() + 1500;
+    while (Date.now() < deadline && isTypelessRunning()) await sleep(100);
+  }
+  // 换设备标识:Typeless 按 deviceId 统计本机登录过的账号数,约 3 个就报
+  // "The number of users logged into this device has exceeded the limit."。
+  // 而切号只换登录态、不动 deviceId,所以连续切号必然撞上限。
+  // 每次切号都清掉设备标识,让 Typeless 生成新 ID,计数即归零。
+  // 必须在 restoreSnapshot 之前清:user-data.json 依赖设备标识派生的密钥。
+  clearDeviceIdentity();
   restoreSnapshot(id);
   const heal = healOnboardingAfterRestore(id);
   // 静默模式:Typeless 判定静默需要「设置里允许自启 + 带静默参数」同时成立,
@@ -794,6 +807,41 @@ const quotaMonitor = createQuotaMonitor({
 });
 let accountSwitchInFlight = false;
 
+/**
+ * 重置设备标识后,按额度规则自动登录一个合格账号。
+ * 规则与自动切号一致:剩余额度 > 配置阈值,再按策略(个性化最高 / 剩余最多 / 自定义顺序)挑选。
+ * 没有合格账号时停在登录页,不强行挑一个。
+ *
+ * 流程要点:先选号,再一次性完成「清设备 → 写快照 → 启动」,
+ * 避免先启动到登录页、几秒后才切号(用户会看到两次界面跳变)。
+ */
+async function resetDeviceAndSignIn() {
+  // 先选号:此时 Typeless 还在运行,额度查询与快照都可用
+  let picked = null;
+  try { picked = await quotaMonitor.selectBestAccount(null); }
+  catch (e) { log('[reset] 选号失败:', e.message); }
+
+  if (!picked || picked.__none) {
+    // 没有合格账号:按老行为重置并停在登录页
+    await resetDevice();
+    return { signed_in: false, reason: 'no-eligible-account' };
+  }
+  const account = readAccounts().find(a => a.user_id === picked.user_id);
+  if (!account) {
+    await resetDevice();
+    return { signed_in: false, reason: 'account-vanished' };
+  }
+
+  // 清设备(不重启)→ 写入目标账号快照 → 交给 activateAccountOnDevice 启动。
+  // 不在这里 launchTypeless:activateAccountOnDevice 会用带调试端口的实例启动,
+  // 先普通启动一次只会被它立刻杀掉重启,既慢又多一次界面闪现。
+  await resetDevice({ restart: false });
+  restoreSnapshot(picked.user_id);
+  healOnboardingAfterRestore(picked.user_id);
+  await activateAccountOnDevice(account);
+  return { signed_in: true, user_id: picked.user_id, name: picked.name, remaining: picked.remaining };
+}
+
 /** 只有额度提醒与自动切号都开启、且运行时支持时才轮询听写状态,避免无谓的后台查库 */
 function syncDictationWatcher() {
   const { enabled, auto_switch } = quotaMonitor.status().config;
@@ -819,7 +867,7 @@ const toolkitUpdate = createToolkitUpdateController({
 // ---------- HTTP ----------
 function send(res, code, obj) {
   res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8' });
-  res.end(JSON.stringify(obj));
+  res.end(JSON.stringify(I18N.localizeResponse(obj, uiPreferences.read())));
 }
 // 文本文件下载(词库导出用)
 function sendDownload(res, filename, text) {
@@ -866,11 +914,25 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(404); return res.end('not found');
     }
 
+    if (m === 'GET' && p === '/assets/i18n.js') {
+      res.writeHead(200, {'Content-Type':'text/javascript; charset=utf-8', 'Cache-Control':'no-cache'});
+      return res.end(fs.readFileSync(path.join(C.CODE_DIR, 'assets', 'i18n.js'), 'utf8'));
+    }
+    if (m === 'GET' && p === '/api/preferences/language') {
+      return send(res, 200, {status:'OK', data:{language:uiPreferences.read(), supported:I18N.SUPPORTED}});
+    }
+    if (m === 'POST' && p === '/api/preferences/language') {
+      const body = await readBody(req);
+      if (!I18N.SUPPORTED.includes(body.language)) return send(res, 400, {status:'FAIL', msg:'Unsupported interface language.'});
+      const language = uiPreferences.write(body.language);
+      return send(res, 200, {status:'OK', data:{language}});
+    }
+
     // 前端首页
     if (m === 'GET' && (p === '/' || p === '/index.html' || p === '/manager.html')) {
       const html = fs.readFileSync(path.join(C.CODE_DIR, 'manager.html'), 'utf8');
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      return res.end(html);
+      return res.end(I18N.renderPage(html, uiPreferences.read()));
     }
     if (m === 'GET' && p === '/api/quota-monitor/status') {
       // auto_switch_available 供界面判断能否开启自动切号(取决于运行时能否读取听写状态)
@@ -1114,6 +1176,29 @@ const server = http.createServer(async (req, res) => {
       } catch (e) {}
       await resetDevice();
       return send(res, 200, { status: 'OK', msg: '设备已重置,Typeless 已以新设备 ID 启动(登录页),可注册新账号' });
+    }
+    // 重置设备标识并按额度规则自动登录一个合格账号(权限与维护页)
+    if (m === 'POST' && p === '/api/reset-device-and-sign-in') {
+      // 重置前尽量保存当前号快照
+      try {
+        const cur = detectCurrentAccountFromFile();
+        if (cur.found && cur.user_id) {
+          try { applyOnboardingCompleteToLiveFiles(); } catch (e) {}
+          saveSnapshot(cur.user_id);
+        }
+      } catch (e) {}
+      try {
+        const outcome = await resetDeviceAndSignIn();
+        return send(res, 200, {
+          status: 'OK',
+          data: outcome,
+          msg: outcome.signed_in
+            ? `设备标识已重置，并已自动登录「${outcome.name}」（剩余 ${outcome.remaining} 字）`
+            : '设备标识已重置；按当前额度规则没有符合条件的账号，已停在登录页',
+        });
+      } catch (error) {
+        return send(res, 500, { status: 'FAIL', msg: '重置设备后自动登录失败：' + (error.message || error) });
+      }
     }
     // 注册并添加新账号·开始:保存当前快照 → 解除设备 → 启动登录页
     if (m === 'POST' && p === '/api/register-wizard/start') {

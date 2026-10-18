@@ -105,4 +105,24 @@ test('macOS:launchApp 不再引用未定义的 userDataDir', async t => {
   assert.doesNotMatch(error.message, /userDataDir is not defined/, '不得再抛 ReferenceError');
 });
 
+/**
+ * 回归:launchApp 从 options.userDataDir 取生效目录,缺省回落 mac.userDataDir()。
+ *
+ * launchApp 内部直接引用模块作用域的 macLaunchArgs,无法在外部 monkeypatch,
+ * 且该分支只在 macOS 生效。这里用源码断言锁定两条取值路径都存在:
+ *   - options.userDataDir 存在 → 必须优先使用(保证 config.userdata_dir 覆盖有效)
+ *   - options 缺省 → 回落 mac.userDataDir()
+ * 真正的运行时行为由上面那条 macOS 用例覆盖。
+ */
+test('macOS:launchApp 从 options.userDataDir 取值并回落平台默认', () => {
+  const src = fs.readFileSync(path.join(__dirname, '..', 'lib', 'platform.js'), 'utf8');
+  // 取出 mac.launchApp 的函数体(到下一个方法定义为止)
+  const match = src.match(/launchApp\(exe, cdpPort, extraArgs, options\) \{([\s\S]*?)\n  \},/g);
+  assert.ok(match && match.length >= 1, '应能定位到 launchApp 定义');
+  const body = match[match.length - 1];
+  assert.match(body, /options\s*&&\s*options\.userDataDir/, '必须优先读取 options.userDataDir');
+  assert.match(body, /mac\.userDataDir\(\)/, '缺省时必须回落 mac.userDataDir()');
+  assert.match(body, /macLaunchArgs\(cdpPort, userDataDir, extraArgs\)/, '取值结果必须传给 macLaunchArgs');
+});
+
 void winArgLine;

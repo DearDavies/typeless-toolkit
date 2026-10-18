@@ -29,6 +29,15 @@ copy /Y manager.html "%RELEASE%\server\manager.html" >nul || exit /b 1
 copy /Y typeless-dict-sync.js "%RELEASE%\server\typeless-dict-sync.js" >nul || exit /b 1
 copy /Y package.json "%RELEASE%\server\package.json" >nul || exit /b 1
 copy /Y package-lock.json "%RELEASE%\server\package-lock.json" >nul || exit /b 1
+rem 宿主启动时会读取这两个文件:缺 windows-build.json 会直接抛异常,缺 toolkit-build.json 会退回默认 edition
+copy /Y windows-build.json "%RELEASE%\windows-build.json" >nul || exit /b 1
+copy /Y windows-build.json "%RELEASE%\server\windows-build.json" >nul || exit /b 1
+copy /Y toolkit-update.json "%RELEASE%\toolkit-update.json" >nul || exit /b 1
+copy /Y toolkit-update.json "%RELEASE%\server\toolkit-update.json" >nul || exit /b 1
+if not exist "%RELEASE%\toolkit-build.json" (
+  powershell -NoProfile -Command "$v=(Get-Content -Raw -Encoding UTF8 package.json|ConvertFrom-Json).version; $c=Get-Content -Raw -Encoding UTF8 windows-build.json|ConvertFrom-Json; $m=[ordered]@{platform='windows';distribution='portable';edition='lite';version=$v;arch=$c.architecture;data_directory=$c.data_directory;node_minimum=$c.node_minimum;node_probe_timeout_ms=$c.node_probe_timeout_ms}; [IO.File]::WriteAllText('%RELEASE%\toolkit-build.json', ($m|ConvertTo-Json), [Text.UTF8Encoding]::new($false))"
+  if errorlevel 1 exit /b 1
+)
 copy /Y icon\icon-rounded.png "%RELEASE%\server\icon.png" >nul || exit /b 1
 xcopy /E /I /Y lib "%RELEASE%\server\lib" >nul || exit /b 1
 xcopy /E /I /Y locales "%RELEASE%\server\locales" >nul || exit /b 1

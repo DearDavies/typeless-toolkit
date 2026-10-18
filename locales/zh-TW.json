@@ -1223,5 +1223,14 @@
   "native.c3e94e774ed3": "目前帳號額度不足。點選開啟管理員，聽寫完成後可確認切換備用帳號。",
   "native.ca88d9b962b3": "額度提醒失敗：",
   "native.1e107518f4b6": "正在開啟 Typeless Toolkit…",
-  "native.4df3ae7eb1da": "無法初始化內嵌瀏覽器。\n請安裝 Microsoft Edge WebView2 Runtime 後重試。\n\n"
+  "native.4df3ae7eb1da": "無法初始化內嵌瀏覽器。\n請安裝 Microsoft Edge WebView2 Runtime 後重試。\n\n",
+  "ui.28bf116951e2": "使用中 · 憑證需重新收錄",
+  "ui.7a3f7f6ecc83": "憑證需重新收錄",
+  "ui.da8bc9ddf11f": "重新收錄憑證",
+  "ui.7e39b411e149": "正在重新收錄憑證…",
+  "ui.98aa02f8136a": "憑證已更新，卡片狀態將在重新整理後恢復",
+  "ui.fc103a1de890": "重新收錄失敗：",
+  "ui.3723db96422e": "目前 Typeless 未登入該帳號，請先切換到該帳號再重新收錄",
+  "ui.b3284ca7c30f": "重新收錄「",
+  "ui.419f9a2f4760": "」的登入憑證?\n\nTypeless 會暫時重新啟動以讀取目前登入狀態，請確認目前已經登入該帳號。"
 }

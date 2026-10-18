@@ -1223,5 +1223,14 @@
   "native.c3e94e774ed3": "Das Kontingent des aktuellen Kontos reicht nicht. Klicken Sie auf „Manager öffnen“; nach Abschluss des Diktats kann der Wechsel zum Ausweichkonto bestätigt werden.",
   "native.ca88d9b962b3": "Kontingent-Erinnerung fehlgeschlagen:",
   "native.1e107518f4b6": "Typeless Toolkit wird geöffnet…",
-  "native.4df3ae7eb1da": "Der eingebettete Browser konnte nicht initialisiert werden.\nBitte Microsoft Edge WebView2 Runtime installieren und erneut versuchen.\n\n"
+  "native.4df3ae7eb1da": "Der eingebettete Browser konnte nicht initialisiert werden.\nBitte Microsoft Edge WebView2 Runtime installieren und erneut versuchen.\n\n",
+  "ui.28bf116951e2": "In Verwendung · Anmeldedaten müssen neu erfasst werden",
+  "ui.7a3f7f6ecc83": "Anmeldedaten müssen neu erfasst werden",
+  "ui.da8bc9ddf11f": "Anmeldedaten neu erfassen",
+  "ui.7e39b411e149": "Anmeldedaten werden neu erfasst…",
+  "ui.98aa02f8136a": "Anmeldedaten aktualisiert. Der Kartenstatus wird in Kürze aktualisiert.",
+  "ui.fc103a1de890": "Neuerfassung fehlgeschlagen: ",
+  "ui.3723db96422e": "Typeless ist bei diesem Konto nicht angemeldet. Wechseln Sie zuerst zu diesem Konto.",
+  "ui.b3284ca7c30f": "Anmeldedaten für „",
+  "ui.419f9a2f4760": "“ neu erfassen?\n\nTypeless wird kurz neu gestartet, um die aktuelle Sitzung zu lesen. Stellen Sie sicher, dass dieses Konto angemeldet ist."
 }

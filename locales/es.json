@@ -1223,5 +1223,14 @@
   "native.c3e94e774ed3": "La cuenta actual no tiene cuota suficiente. Pulsa para abrir el gestor; cuando termines de dictar podrás confirmar el cambio a una cuenta de reserva.",
   "native.ca88d9b962b3": "El aviso de cuota falló: ",
   "native.1e107518f4b6": "Abriendo Typeless Toolkit…",
-  "native.4df3ae7eb1da": "No se pudo inicializar el navegador integrado.\nInstala Microsoft Edge WebView2 Runtime y vuelve a intentarlo.\n\n"
+  "native.4df3ae7eb1da": "No se pudo inicializar el navegador integrado.\nInstala Microsoft Edge WebView2 Runtime y vuelve a intentarlo.\n\n",
+  "ui.28bf116951e2": "En uso · credencial requiere recaptura",
+  "ui.7a3f7f6ecc83": "La credencial requiere recaptura",
+  "ui.da8bc9ddf11f": "Recapturar credencial",
+  "ui.7e39b411e149": "Recapturando credencial…",
+  "ui.98aa02f8136a": "Credencial actualizada. El estado de la tarjeta se refrescará en breve.",
+  "ui.fc103a1de890": "Error al recapturar: ",
+  "ui.3723db96422e": "Typeless no ha iniciado sesión en esta cuenta. Cambia a ella y vuelve a recapturar.",
+  "ui.b3284ca7c30f": "Recapturar credenciales de «",
+  "ui.419f9a2f4760": "»?\n\nTypeless se reiniciará brevemente para leer la sesión actual. Asegúrate de haber iniciado sesión en esta cuenta."
 }

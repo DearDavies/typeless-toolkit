@@ -1438,16 +1438,31 @@ function render(){
     const p=pct(used,lim), pcls=p>85?'err':p>65?'warn':'';
     const serviceError=live.credential_state==='api_error';
     const valid=live.token_valid!==false && !['expired','refresh_error'].includes(live.credential_state);
+    // 凭据失效(服务端已撤销本地 refresh token)但账号本身仍可用:切号链路不写回凭据,
+    // 所以「切换成功」与「卡片标红」会同时出现(issue #57)。这里单独给出自愈入口。
+    const credentialBroken=['expired','refresh_error'].includes(live.credential_state);
+    const isCurrent=a.user_id===CUR_ID;
     const days=live.credential_days_left;
     const credentialNeedsUpdate=live.credential_state==='legacy';
-    const daysTxt = credentialNeedsUpdate?i18nText("ui.d2b913994fef","需更新"):(days==null?'—':(days<0?i18nText("ui.1354374f768e","已过期"):days+i18nText("ui.c3304d1e49e3","天")));
-    const daysCls = credentialNeedsUpdate?'warn':(days==null?'mut':'');
+    // 「登录有效期」按 JWT exp 计算,失效账号照样显示几百天,容易误导成「凭据可用」。
+    // 凭据失效时直接改口径,避免用户以为还能继续用。
+    const daysTxt = credentialNeedsUpdate?i18nText("ui.d2b913994fef","需更新"):(credentialBroken?i18nText("ui.d2b913994fef","需更新"):(days==null?'—':(days<0?i18nText("ui.1354374f768e","已过期"):days+i18nText("ui.c3304d1e49e3","天"))));
+    const daysCls = (credentialNeedsUpdate||credentialBroken)?'warn':(days==null?'mut':'');
+    // 徽章分层:当前登录态 与 凭据可用性 分开表达,不再用一句「失效」盖住两种含义
+    const credentialBadge = credentialBroken
+      ? (isCurrent
+        ? {label:i18nText("ui.28bf116951e2","使用中 · 凭据需重新收录"),className:'warn',title:live._err||''}
+        : {label:i18nText("ui.7a3f7f6ecc83","凭据需重新收录"),className:'warn',title:live._err||''})
+      : null;
     const ini=(a.nickname||a.email||'?').trim().charAt(0).toUpperCase();
     const cloudOnly=!!a.cloud_only && !a.has_snapshot;
     const roleBadge=accountRoleBadge(live,a.role||'');
-    return i18nText("ui.71d1cc58a024","<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\"><span class=\"badge {p8}\" title=\"{p9}\">{p10}</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>本周额度</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">词库</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">个性化</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">登录有效期</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}详情</button>\n          {p25}\n        </div>\n      </div>\n    </div>",[a.user_id===CUR_ID?'active':'',valid?'':'invalid',a.user_id,esc(ini),esc(a.nickname||a.email||a.user_id),esc(a.nickname||a.email||a.user_id),a.user_id===CUR_ID?i18nText("ui.a24c68ed3038","<span class=\"badge current\">当前账号</span>"):'',a.nickname&&a.nickname!==a.email?`<div class="email" title="${esc(a.email||a.user_id)}">${esc(a.email||a.user_id)}</div>`:'',roleBadge.className,esc(roleBadge.title),esc(roleBadge.label),live.loading?i18nText("ui.f950213ab758","读取中…"):(ok?nfmt(used)+' / '+nfmt(lim):i18nText("ui.b33315080b04","额度未知")),pcls,p,ok?p+'%':'—',live._err?`<div class="settings-note" style="margin-top:8px;color:var(--${serviceError?'warn':'err'})">${esc(live._err)}</div>`:'',live.loading?'…':(live.dict_count??'-'),live.loading?'…':(Math.round((live.personal?.total_learning_ratio||0)*100)+'%'),daysCls,daysTxt,a.snapshot_mismatch?'':(a.has_snapshot&&a.snapshot_ok!==false?'has':''),a.snapshot_mismatch?esc(i18nText("ui.32ed63581820","串号: 内容是 ")+(a.snapshot_email||a.snapshot_user_id||'')) : '',cloudOnly?i18nText("ui.9d15bf538ac4","云端待启用"):(a.snapshot_mismatch?i18nText("ui.ac180ec8fe52","快照串号"):(a.has_snapshot?i18nText("ui.a72a5c6c4397","快照已存"):i18nText("ui.6f7ac64334cd","未存快照"))),a.user_id,uiIcon('details'),cloudOnly
+    // 徽章区:原有套餐/状态徽章 + 凭据失效徽章
+    const badges = `<span class="badge ${roleBadge.className}" title="${esc(roleBadge.title)}">${esc(roleBadge.label)}</span>`
+      + (credentialBadge ? `<span class="badge ${credentialBadge.className}" title="${esc(credentialBadge.title)}">${esc(credentialBadge.label)}</span>` : '');
+    return i18nText("ui.71d1cc58a024","<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\">{p26}</div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>本周额度</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">词库</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">个性化</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">登录有效期</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}详情</button>\n          {p25}\n        </div>\n      </div>\n    </div>",[a.user_id===CUR_ID?'active':'',valid?'':'invalid',a.user_id,esc(ini),esc(a.nickname||a.email||a.user_id),esc(a.nickname||a.email||a.user_id),a.user_id===CUR_ID?i18nText("ui.a24c68ed3038","<span class=\"badge current\">当前账号</span>"):'',a.nickname&&a.nickname!==a.email?`<div class="email" title="${esc(a.email||a.user_id)}">${esc(a.email||a.user_id)}</div>`:'',roleBadge.className,esc(roleBadge.title),esc(roleBadge.label),live.loading?i18nText("ui.f950213ab758","读取中…"):(ok?nfmt(used)+' / '+nfmt(lim):i18nText("ui.b33315080b04","额度未知")),pcls,p,ok?p+'%':'—',live._err?`<div class="settings-note" style="margin-top:8px;color:var(--${serviceError?'warn':'err'})">${esc(live._err)}</div>`:'',live.loading?'…':(live.dict_count??'-'),live.loading?'…':(Math.round((live.personal?.total_learning_ratio||0)*100)+'%'),daysCls,daysTxt,a.snapshot_mismatch?'':(a.has_snapshot&&a.snapshot_ok!==false?'has':''),a.snapshot_mismatch?esc(i18nText("ui.32ed63581820","串号: 内容是 ")+(a.snapshot_email||a.snapshot_user_id||'')) : '',cloudOnly?i18nText("ui.9d15bf538ac4","云端待启用"):(a.snapshot_mismatch?i18nText("ui.ac180ec8fe52","快照串号"):(a.has_snapshot?i18nText("ui.a72a5c6c4397","快照已存"):i18nText("ui.6f7ac64334cd","未存快照"))),a.user_id,uiIcon('details'),cloudOnly
             ? i18nText("ui.96d3cd7e317e","<button class=\"btn small primary\" onclick=\"event.stopPropagation();activateAccount('{p0}')\">在此设备启用</button>",[a.user_id])
-            : `<button class="btn small switch-btn ${a.user_id===CUR_ID?'current-action':''}" onclick="event.stopPropagation();switchTo('${a.user_id}')" ${a.has_snapshot&&a.snapshot_ok!==false?'':'disabled'}>${uiIcon('switch')}${a.user_id===CUR_ID?i18nText("ui.aba0af2679a2","重新切换"):i18nText("ui.2f116b7d1c18","切换")}</button>`]);
+            : `${credentialBroken?`<button class="btn small" onclick="event.stopPropagation();recaptureCredential('${a.user_id}')">${uiIcon('switch')}${i18nText("ui.da8bc9ddf11f","重新收录凭据")}</button>`:''}<button class="btn small switch-btn ${a.user_id===CUR_ID?'current-action':''}" onclick="event.stopPropagation();switchTo('${a.user_id}')" ${a.has_snapshot&&a.snapshot_ok!==false?'':'disabled'}>${uiIcon('switch')}${a.user_id===CUR_ID?i18nText("ui.aba0af2679a2","重新切换"):i18nText("ui.2f116b7d1c18","切换")}</button>`,badges]);
   }).join('');
 }
 
@@ -1757,6 +1772,47 @@ async function resetDeviceOnly(){
     }else toast(r.msg||i18nText("ui.ff5da34a9ba0","设备重置失败"),'err');
   }catch(e){ toast(i18nText("ui.c59261873d87","设备重置请求失败：")+(e.message||e)+i18nText("ui.80362f0646f1","。请检查 Typeless 当前状态后再操作。"),'err'); }
   finally{ btn.disabled=false; btn.textContent=i18nText("ui.8a8cf3665c2d","重置设备"); }
+}
+/**
+ * 重新收录当前登录账号的凭据(issue #57 的自愈入口)。
+ *
+ * 背景:服务端会轮换/撤销 refresh token,本地副本失效后卡片标红,
+ * 但切号链路(switchToAccountSnapshot)不写回凭据,所以「切换成功」和
+ * 「卡片失败」会同时出现。这里复用现成的 /api/capture + /api/accounts,
+ * 不引入新机制:抓到当前 Typeless 登录态的凭证后按 user_id 覆盖写回。
+ *
+ * 前提:Typeless 必须正登录着目标账号;抓到的账号与目标不一致时明确报错,
+ * 避免把 A 账号的凭证写进 B 账号的记录。
+ */
+async function recaptureCredential(id){
+  const a=ACCOUNTS.find(x=>x.user_id===id); if(!a) return;
+  if(!await appConfirm(i18nText("ui.b3284ca7c30f","重新收录「")+(a.nickname||a.email||id)+i18nText("ui.419f9a2f4760","」的登录凭据?\n\nTypeless 会临时重启以读取当前登录态，请确保当前已登录该账号。"))) return;
+  toast(i18nText("ui.7e39b411e149","正在重新收录凭据…"));
+  try{
+    const cap=await apiTimed('/api/capture',{method:'POST'},45000);
+    if(cap.status!=='OK') throw new Error(cap.msg||i18nText("ui.5f76edc5de7b","未知错误"));
+    const d=cap.data||{};
+    // 抓到的必须就是目标账号,否则宁可失败也不写错记录
+    if(d.user_id && d.user_id!==id){
+      throw new Error(i18nText("ui.3723db96422e","当前 Typeless 未登录该账号，请先切换到该账号再重新收录"));
+    }
+    const save=await api('/api/accounts',{method:'POST',body:JSON.stringify({
+      user_id:id,
+      nickname:a.nickname||a.email||id,
+      email:a.email,
+      role:a.role,
+      token:d.token,
+      refresh_token:d.refresh_token,
+      client_user_id:d.client_user_id,
+      captured_at:d.captured_at,
+    })});
+    if(save.status!=='OK') throw new Error(save.msg||i18nText("ui.40525a732872","保存失败"));
+    toast(i18nText("ui.98aa02f8136a","凭据已更新，卡片状态将在刷新后恢复"),'ok');
+    setTimeout(()=>{ loadAccounts(); detectCurrent(); },1200);
+  }catch(e){
+    toast(i18nText("ui.fc103a1de890","重新收录失败：")+(e?.message||e),'err');
+    setTimeout(detectCurrent,2500);
+  }
 }
 async function switchTo(id){
   const a=ACCOUNTS.find(x=>x.user_id===id); if(!a) return;

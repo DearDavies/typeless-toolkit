@@ -1223,5 +1223,14 @@
   "native.c3e94e774ed3": "Geçerli hesabın kotası yetersiz. Yöneticiyi açın; dikte bittikten sonra yedek hesaba geçişi onaylayabilirsiniz.",
   "native.ca88d9b962b3": "Kota uyarısı gösterilemedi: ",
   "native.1e107518f4b6": "Typeless Toolkit açılıyor…",
-  "native.4df3ae7eb1da": "Gömülü tarayıcı başlatılamadı.\nMicrosoft Edge WebView2 Runtime’ı kurup yeniden deneyin.\n\n"
+  "native.4df3ae7eb1da": "Gömülü tarayıcı başlatılamadı.\nMicrosoft Edge WebView2 Runtime’ı kurup yeniden deneyin.\n\n",
+  "ui.28bf116951e2": "Kullanımda · kimlik bilgisi yeniden alınmalı",
+  "ui.7a3f7f6ecc83": "Kimlik bilgisi yeniden alınmalı",
+  "ui.da8bc9ddf11f": "Kimlik bilgisini yeniden al",
+  "ui.7e39b411e149": "Kimlik bilgisi yeniden alınıyor…",
+  "ui.98aa02f8136a": "Kimlik bilgisi güncellendi. Kart durumu kısa süre içinde yenilenecek.",
+  "ui.fc103a1de890": "Yeniden alma başarısız: ",
+  "ui.3723db96422e": "Typeless bu hesapta oturum açmamış. Önce bu hesaba geçin, sonra yeniden alın.",
+  "ui.b3284ca7c30f": "“",
+  "ui.419f9a2f4760": "” için oturum bilgileri yeniden alınsın mı?\n\nGeçerli oturumu okumak için Typeless kısa süreliğine yeniden başlatılacak. Bu hesapta oturum açtığınızdan emin olun."
 }

@@ -4,7 +4,7 @@ chcp 65001 >nul
 title Typeless Toolkit - release
 cd /d "%~dp0"
 
-call build-tray.bat
+call "%~dp0build-tray.bat"
 if errorlevel 1 exit /b 1
 
 set "RELEASE=..\release\TypelessToolkit-v2.0.2"

@@ -1223,5 +1223,14 @@
   "native.c3e94e774ed3": "Le quota du compte actuel est insuffisant. Cliquez pour ouvrir le gestionnaire ; une fois la dictée terminée, vous pourrez confirmer la bascule vers un compte de secours.",
   "native.ca88d9b962b3": "Échec de l'alerte de quota : ",
   "native.1e107518f4b6": "Ouverture de Typeless Toolkit…",
-  "native.4df3ae7eb1da": "Impossible d'initialiser le navigateur intégré.\nInstallez Microsoft Edge WebView2 Runtime, puis réessayez.\n\n"
+  "native.4df3ae7eb1da": "Impossible d'initialiser le navigateur intégré.\nInstallez Microsoft Edge WebView2 Runtime, puis réessayez.\n\n",
+  "ui.28bf116951e2": "Utilisé · identifiant à récupérer",
+  "ui.7a3f7f6ecc83": "Identifiant à récupérer",
+  "ui.da8bc9ddf11f": "Récupérer l’identifiant",
+  "ui.7e39b411e149": "Récupération de l’identifiant…",
+  "ui.98aa02f8136a": "Identifiant mis à jour. L’état de la carte sera actualisé sous peu.",
+  "ui.fc103a1de890": "Échec de la récupération : ",
+  "ui.3723db96422e": "Typeless n’est pas connecté à ce compte. Basculez dessus puis réessayez.",
+  "ui.b3284ca7c30f": "Récupérer les identifiants de «",
+  "ui.419f9a2f4760": "» ?\n\nTypeless va redémarrer brièvement pour lire la session actuelle. Assurez-vous d’être connecté à ce compte."
 }

@@ -1223,5 +1223,14 @@
   "native.c3e94e774ed3": "当前账号额度不足。点击打开管理器，听写完成后可确认切换备用账号。",
   "native.ca88d9b962b3": "额度提醒失败：",
   "native.1e107518f4b6": "正在打开 Typeless Toolkit…",
-  "native.4df3ae7eb1da": "无法初始化内嵌浏览器。\n请安装 Microsoft Edge WebView2 Runtime 后重试。\n\n"
+  "native.4df3ae7eb1da": "无法初始化内嵌浏览器。\n请安装 Microsoft Edge WebView2 Runtime 后重试。\n\n",
+  "ui.28bf116951e2": "使用中 · 凭据需重新收录",
+  "ui.7a3f7f6ecc83": "凭据需重新收录",
+  "ui.da8bc9ddf11f": "重新收录凭据",
+  "ui.7e39b411e149": "正在重新收录凭据…",
+  "ui.98aa02f8136a": "凭据已更新，卡片状态将在刷新后恢复",
+  "ui.fc103a1de890": "重新收录失败：",
+  "ui.3723db96422e": "当前 Typeless 未登录该账号，请先切换到该账号再重新收录",
+  "ui.b3284ca7c30f": "重新收录「",
+  "ui.419f9a2f4760": "」的登录凭据?\n\nTypeless 会临时重启以读取当前登录态，请确保当前已登录该账号。"
 }

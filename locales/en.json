@@ -1223,5 +1223,14 @@
   "native.c3e94e774ed3": "The current account is running low on quota. Open the manager to confirm a switch to a backup account once dictation finishes.",
   "native.ca88d9b962b3": "Quota alert failed: ",
   "native.1e107518f4b6": "Opening Typeless Toolkit…",
-  "native.4df3ae7eb1da": "Could not initialize the embedded browser.\nInstall Microsoft Edge WebView2 Runtime and try again.\n\n"
+  "native.4df3ae7eb1da": "Could not initialize the embedded browser.\nInstall Microsoft Edge WebView2 Runtime and try again.\n\n",
+  "ui.28bf116951e2": "In use · credential needs recapture",
+  "ui.7a3f7f6ecc83": "Credential needs recapture",
+  "ui.da8bc9ddf11f": "Recapture credential",
+  "ui.7e39b411e149": "Recapturing credential…",
+  "ui.98aa02f8136a": "Credential updated. Card status will refresh shortly.",
+  "ui.fc103a1de890": "Recapture failed: ",
+  "ui.3723db96422e": "Typeless is not signed in to this account. Switch to it first, then recapture.",
+  "ui.b3284ca7c30f": "Recapture credentials for “",
+  "ui.419f9a2f4760": "”?\n\nTypeless will restart briefly to read the current session. Make sure it is signed in to this account."
 }

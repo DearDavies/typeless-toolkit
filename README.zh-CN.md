@@ -16,7 +16,7 @@
 
 [下载最新版本](https://github.com/Jia131313/typeless-toolkit/releases/latest) · [快速开始](#快速开始) · [完整文档](docs/reference.md) · [反馈问题](https://github.com/Jia131313/typeless-toolkit/issues)
 
-[English](README.md) · **简体中文** · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
+[English](README.en.md) · **简体中文** · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
 
 </div>
 

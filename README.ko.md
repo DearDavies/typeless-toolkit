@@ -16,7 +16,7 @@ Typeless 데스크톱 앱을 위한 로컬 보조 도구로, 하나의 창에서
 
 [최신 버전 다운로드](https://github.com/Jia131313/typeless-toolkit/releases/latest) · [빠른 시작](#빠른-시작) · [전체 문서](docs/reference.md) · [문제 제보](https://github.com/Jia131313/typeless-toolkit/issues)
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · **한국어**
+[English](README.en.md) · [简体中文](README.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · **한국어**
 
 </div>
 

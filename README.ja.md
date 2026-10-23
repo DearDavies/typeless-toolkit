@@ -16,7 +16,7 @@ Typeless デスクトップアプリ向けのローカル補助ツールです�
 
 [最新版をダウンロード](https://github.com/Jia131313/typeless-toolkit/releases/latest) · [クイックスタート](#クイックスタート) · [ドキュメント](docs/reference.md) · [問題を報告](https://github.com/Jia131313/typeless-toolkit/issues)
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · **日本語** · [한국어](README.ko.md)
+[English](README.en.md) · [简体中文](README.md) · [繁體中文](README.zh-TW.md) · **日本語** · [한국어](README.ko.md)
 
 </div>
 

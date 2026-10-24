@@ -2,7 +2,8 @@
 setlocal
 chcp 65001 >nul
 title Typeless Toolkit - release
-cd /d "%~dp0"
+rem 脚本位于 build/ 子目录: 切回仓库根, 后续相对路径仍以根目录为基准
+cd /d "%~dp0.."
 
 call "%~dp0build-tray.bat"
 if errorlevel 1 exit /b 1

@@ -4,10 +4,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.join(__dirname, '..');
-const publicBuild = fs.readFileSync(path.join(root, 'build-public-release.ps1'), 'utf8');
-const localBuild = fs.readFileSync(path.join(root, 'build-release.bat'), 'utf8');
-const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
-// README.md 是英文主文档；中文版同步维护，脱敏说明两处都要在
+const publicBuild = fs.readFileSync(path.join(root, 'build', 'build-public-release.ps1'), 'utf8');
+const localBuild = fs.readFileSync(path.join(root, 'build', 'build-release.bat'), 'utf8');
+// 默认 README.md 已改为简体中文，英文版保留在 README.en.md；脱敏说明两处都要在
+const readme = fs.readFileSync(path.join(root, 'README.en.md'), 'utf8');
 const readmeZh = fs.readFileSync(path.join(root, 'README.zh-CN.md'), 'utf8');
 const releaseWorkflow = fs.readFileSync(path.join(root, '.github', 'workflows', 'release.yml'), 'utf8');
 const releaseGuide = fs.readFileSync(path.join(root, '.github', 'release-guide.md'), 'utf8');
@@ -20,7 +20,8 @@ test('release version is consistent across packages, launchers, and scripts', ()
   const host = fs.readFileSync(path.join(root, 'main.cs'), 'utf8');
   assert.equal(lock.version, version);
   assert.equal(lock.packages[''].version, version);
-  assert.match(publicBuild, /\$publicVersion\s*=\s*\(Get-Content\s+-Raw\s+-Encoding\s+UTF8\s+\(Join-Path\s+\$PSScriptRoot\s+'package\.json'\)\s*\|\s*ConvertFrom-Json\)\.version/);
+  // 构建脚本已移入 build/，$sourceRoot 指向仓库根，package.json 从根目录读取
+  assert.match(publicBuild, /\$publicVersion\s*=\s*\(Get-Content\s+-Raw\s+-Encoding\s+UTF8\s+\(Join-Path\s+\$sourceRoot\s+'package\.json'\)\s*\|\s*ConvertFrom-Json\)\.version/);
   assert.match(localBuild, new RegExp(`TypelessToolkit-v${version.replaceAll('.', '\\.')}`));
   assert.match(manifest, new RegExp(`version="${version.replaceAll('.', '\\.')}\\.0"`));
   assert.match(host, new RegExp(`AssemblyVersion\\("${version.replaceAll('.', '\\.')}\\.0"\\)`));

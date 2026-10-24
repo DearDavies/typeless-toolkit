@@ -10,7 +10,7 @@ const artifactPath = path.resolve(process.argv[2] || '');
 if (!process.argv[2]) throw new Error('Usage: node scripts/smoke-release-package.js <release.zip|release.dmg>');
 if (!fs.existsSync(artifactPath)) throw new Error(`Release artifact not found: ${artifactPath}`);
 const projectRoot = path.join(__dirname, '..');
-const macBuildConfig = JSON.parse(fs.readFileSync(path.join(projectRoot, 'macos-build.json'), 'utf8'));
+const macBuildConfig = JSON.parse(fs.readFileSync(path.join(projectRoot, 'build', 'macos-build.json'), 'utf8'));
 
 function artifactVersion(filePath) {
   const match = path.basename(filePath).match(/(?:^|[-_])v?(\d+(?:\.\d+){2,3})(?=[-_.]|$)/i);

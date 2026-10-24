@@ -107,4 +107,4 @@ node manager.js
 
 ## 介面語言
 
-內建九種介面語言：简体中文、繁體中文、English、日本語、한국어、Español、Français、Deutsch、Türkçe。可在「設定 → 一般 → 介面語言」中切換。翻譯隨套件內建，不需要連網；語言偏好會在重新啟動後保留。用法、維護與驗證方式見 [LOCALIZATION.md](LOCALIZATION.md)。
+內建九種介面語言：简体中文、繁體中文、English、日本語、한국어、Español、Français、Deutsch、Türkçe。可在「設定 → 一般 → 介面語言」中切換。翻譯隨套件內建，不需要連網；語言偏好會在重新啟動後保留。用法、維護與驗證方式見 [LOCALIZATION.md](docs/LOCALIZATION.md)。

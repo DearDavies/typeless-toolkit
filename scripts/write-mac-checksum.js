@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const projectRoot = path.join(__dirname, '..');
-const buildConfig = JSON.parse(fs.readFileSync(path.join(projectRoot, 'macos-build.json'), 'utf8'));
+const buildConfig = JSON.parse(fs.readFileSync(path.join(projectRoot, 'build', 'macos-build.json'), 'utf8'));
 const { version } = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
 const firstArgument = process.argv[2];
 let filePath;

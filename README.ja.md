@@ -107,4 +107,4 @@ node manager.js
 
 ## 表示言語
 
-9 種類の表示言語を同梱しています：简体中文、繁體中文、English、日本語、한국어、Español、Français、Deutsch、Türkçe。「設定 → 一般 → 表示言語」で切り替えられます。翻訳はパッケージに同梱されるためネットワーク接続は不要で、言語の設定は再起動後も保持されます。使い方、メンテナンス、検証方法は [LOCALIZATION.md](LOCALIZATION.md) をご覧ください。
+9 種類の表示言語を同梱しています：简体中文、繁體中文、English、日本語、한국어、Español、Français、Deutsch、Türkçe。「設定 → 一般 → 表示言語」で切り替えられます。翻訳はパッケージに同梱されるためネットワーク接続は不要で、言語の設定は再起動後も保持されます。使い方、メンテナンス、検証方法は [LOCALIZATION.md](docs/LOCALIZATION.md) をご覧ください。

@@ -107,4 +107,4 @@ Released under the [MIT license](LICENSE). Thanks to the [LINUX DO community](ht
 
 ## Interface languages
 
-Nine interface languages are built in: Simplified Chinese, Traditional Chinese, English, Japanese, Korean, Spanish, French, German and Turkish. Choose one under **Settings → General → Interface language**. Translations ship with the app — no network translation is used — and the preference persists across restarts. See [LOCALIZATION.md](LOCALIZATION.md) for usage, maintenance and validation.
+Nine interface languages are built in: Simplified Chinese, Traditional Chinese, English, Japanese, Korean, Spanish, French, German and Turkish. Choose one under **Settings → General → Interface language**. Translations ship with the app — no network translation is used — and the preference persists across restarts. See [LOCALIZATION.md](docs/LOCALIZATION.md) for usage, maintenance and validation.

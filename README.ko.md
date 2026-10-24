@@ -107,4 +107,4 @@ node manager.js
 
 ## 인터페이스 언어
 
-내장된 인터페이스 언어는 아홉 가지입니다: 중국어 간체, 중국어 번체, English, 日本語, 한국어, Español, Français, Deutsch, Türkçe. "설정 → 일반 → 인터페이스 언어"에서 전환할 수 있습니다. 번역은 패키지에 내장되어 있어 인터넷 연결이 필요 없고, 언어 설정은 다시 시작해도 유지됩니다. 사용법, 유지 관리, 검증 방법은 [LOCALIZATION.md](LOCALIZATION.md)를 참고하세요.
+내장된 인터페이스 언어는 아홉 가지입니다: 중국어 간체, 중국어 번체, English, 日本語, 한국어, Español, Français, Deutsch, Türkçe. "설정 → 일반 → 인터페이스 언어"에서 전환할 수 있습니다. 번역은 패키지에 내장되어 있어 인터넷 연결이 필요 없고, 언어 설정은 다시 시작해도 유지됩니다. 사용법, 유지 관리, 검증 방법은 [LOCALIZATION.md](docs/LOCALIZATION.md)를 참고하세요.

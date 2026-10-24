@@ -9,7 +9,7 @@ let buildURL = projectRoot.appendingPathComponent(".build", isDirectory: true)
 let iconsetURL = buildURL.appendingPathComponent("macos-icon.iconset", isDirectory: true)
 let roundedURL = assetsURL.appendingPathComponent("icon-rounded.png")
 let icnsURL = assetsURL.appendingPathComponent("icon.icns")
-let buildConfigURL = projectRoot.appendingPathComponent("macos-build.json")
+let buildConfigURL = projectRoot.appendingPathComponent("build/macos-build.json")
 
 guard
     let buildConfigData = try? Data(contentsOf: buildConfigURL),
@@ -20,7 +20,7 @@ guard
     let macCornerRadius = iconConfig["macCornerRadius"] as? Int,
     let webCornerRadiusRatio = iconConfig["webCornerRadiusRatio"] as? Double
 else {
-    fputs("无法读取 macos-build.json 中的图标参数\n", stderr)
+    fputs("无法读取 build/macos-build.json 中的图标参数\n", stderr)
     exit(1)
 }
 

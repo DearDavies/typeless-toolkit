@@ -62,10 +62,10 @@ release 版只有一个入口：`TypelessToolkit.exe`。
 - 默认窗口最多为 1440×880，并自动适应屏幕工作区；首页保留高频操作，配置类入口集中在设置，工具栏和账号卡片随窄窗口自适应排列。
 - 点击窗口关闭按钮会收纳到托盘；双击托盘图标或再次双击 EXE 可恢复窗口。
 - 托盘右键→「退出」才会关闭窗口及由它启动的后端进程。
-- 修改源码后运行 `build-release.bat`，会重新生成单入口 release 包；Windows 编译中间产物统一放在 `.build/windows/`，不会散落到源码根目录。
+- 修改源码后运行 `build/build-release.bat`，会重新生成单入口 release 包；Windows 编译中间产物统一放在 `.build/windows/`，不会散落到源码根目录。
 
-`build-release.bat` 用于更新本机自用包，会保留已有账号和快照。准备公开附件时必须运行
-`build-public-release.bat`，它会生成：
+`build/build-release.bat` 用于更新本机自用包，会保留已有账号和快照。准备公开附件时必须运行
+`build/build-public-release.bat`，它会生成：
 
 - 文件名以 `win-x64-portable.zip` 结尾的 ZIP：内置经过 SHA-256 校验的 Node.js
 - 文件名以 `win-x64-lite.zip` 结尾的 ZIP：使用系统 Node.js 22.12+

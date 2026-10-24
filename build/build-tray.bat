@@ -2,7 +2,8 @@
 setlocal
 chcp 65001 >nul
 title Typeless Toolkit - build
-cd /d "%~dp0"
+rem 脚本位于 build/ 子目录: 切回仓库根, 后续相对路径仍以根目录为基准
+cd /d "%~dp0.."
 
 set "CSC=C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe"
 for /f "delims=" %%V in ('powershell -NoProfile -Command "(ConvertFrom-Json -InputObject (Get-Content -Raw -Encoding UTF8 windows-build.json)).webview2_version"') do set "WV2_VERSION=%%V"

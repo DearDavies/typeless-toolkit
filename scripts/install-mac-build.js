@@ -6,7 +6,7 @@ const { execFileSync } = require('node:child_process');
 if (process.platform !== 'darwin') throw new Error('本地 macOS 安装脚本只能在 Mac 上运行');
 
 const projectRoot = path.join(__dirname, '..');
-const buildConfig = JSON.parse(fs.readFileSync(path.join(projectRoot, 'macos-build.json'), 'utf8'));
+const buildConfig = JSON.parse(fs.readFileSync(path.join(projectRoot, 'build', 'macos-build.json'), 'utf8'));
 const { version } = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
 const firstArgument = process.argv[2];
 const defaultArch = process.arch === 'arm64' ? 'arm64' : 'x64';

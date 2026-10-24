@@ -3,7 +3,7 @@ const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 
 const projectRoot = path.join(__dirname, '..');
-const buildConfig = JSON.parse(fs.readFileSync(path.join(projectRoot, 'macos-build.json'), 'utf8'));
+const buildConfig = JSON.parse(fs.readFileSync(path.join(projectRoot, 'build', 'macos-build.json'), 'utf8'));
 const serverDir = path.join(projectRoot, buildConfig.paths.bundleServer);
 
 function copy(source, destination) {

@@ -5,7 +5,7 @@ const { spawnSync } = require('node:child_process');
 if (process.platform !== 'darwin') throw new Error('Tauri macOS packages can only be built on macOS');
 
 const projectRoot = path.join(__dirname, '..');
-const buildConfig = JSON.parse(fs.readFileSync(path.join(projectRoot, 'macos-build.json'), 'utf8'));
+const buildConfig = JSON.parse(fs.readFileSync(path.join(projectRoot, 'build', 'macos-build.json'), 'utf8'));
 const packageManifest = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
 const buildRoot = path.join(projectRoot, buildConfig.paths.buildRoot);
 const serverDir = path.join(projectRoot, buildConfig.paths.bundleServer);

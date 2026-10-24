@@ -5,7 +5,7 @@ const { spawnSync } = require('node:child_process');
 if (process.platform !== 'darwin') throw new Error('macOS Node runtime can only be prepared on macOS');
 
 const projectRoot = path.join(__dirname, '..');
-const buildConfig = JSON.parse(fs.readFileSync(path.join(projectRoot, 'macos-build.json'), 'utf8'));
+const buildConfig = JSON.parse(fs.readFileSync(path.join(projectRoot, 'build', 'macos-build.json'), 'utf8'));
 const requestedArch = process.argv[2];
 const architecture = buildConfig.architectures[requestedArch];
 if (!architecture) {

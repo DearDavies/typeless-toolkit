@@ -1,10 +1,11 @@
 $ErrorActionPreference = 'Stop'
 
-$buildConfig = Get-Content -Raw -Encoding UTF8 (Join-Path $PSScriptRoot 'windows-build.json') | ConvertFrom-Json
-$publicVersion = (Get-Content -Raw -Encoding UTF8 (Join-Path $PSScriptRoot 'package.json') | ConvertFrom-Json).version
+# 脚本位于 build/ 子目录: 仓库根是上一级目录, 所有资源路径都相对根目录
+$sourceRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+$buildConfig = Get-Content -Raw -Encoding UTF8 (Join-Path $sourceRoot 'windows-build.json') | ConvertFrom-Json
+$publicVersion = (Get-Content -Raw -Encoding UTF8 (Join-Path $sourceRoot 'package.json') | ConvertFrom-Json).version
 $nodeVersion = $buildConfig.node_version
 $nodeDist = "node-v$nodeVersion-win-x64"
-$sourceRoot = [IO.Path]::GetFullPath($PSScriptRoot)
 $windowsBuildRoot = [IO.Path]::GetFullPath((Join-Path $sourceRoot '.build\windows'))
 $releaseRoot = [IO.Path]::GetFullPath((Join-Path $sourceRoot '..\release'))
 $baseName = "TypelessToolkit-v$publicVersion-win-x64"
@@ -153,7 +154,7 @@ function Write-ArchiveAndHash([string]$target, [string]$zip, [string]$shaPath) {
 }
 
 Write-Host '[public] Building desktop launcher...'
-& cmd.exe /c (Join-Path $sourceRoot 'build-tray.bat')
+& cmd.exe /c (Join-Path $sourceRoot 'build\build-tray.bat')
 if ($LASTEXITCODE -ne 0) { throw "build-tray.bat failed with exit code $LASTEXITCODE" }
 
 New-Item -ItemType Directory -Force -Path $releaseRoot | Out-Null

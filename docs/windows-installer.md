@@ -45,6 +45,6 @@ GitHub 限流时显示原因及可重试时间，等待期不重复查询；成�
 
 ## 构建
 
-使用现有 `build-public-release.bat` / `.ps1`，需要支持动态明暗样式的 Inno Setup 6.7+ 编译器。版本来自 `package.json`；Node、安装身份、数据目录、迁移范围和安装界面样式等参数来自根目录 `windows-build.json`，更新超时与缓存参数来自 `toolkit-update.json`。
+使用现有 `build/build-public-release.bat` / `.ps1`，需要支持动态明暗样式的 Inno Setup 6.7+ 编译器。版本来自 `package.json`；Node、安装身份、数据目录、迁移范围和安装界面样式等参数来自根目录 `windows-build.json`，更新超时与缓存参数来自 `toolkit-update.json`。
 
 公开构建从空账号和空快照模板生成两个 ZIP 与两个 Setup。安装器只部署程序及默认模板，不覆盖独立数据目录。工作流已接入 Setup 构建，实际发布仍是单独授权动作。

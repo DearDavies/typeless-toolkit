@@ -14,12 +14,12 @@
 - `main.cs`：独立于 WebView 的十秒只读通知轮询，同一提醒只显示一次，点击通知只打开管理器。
 - `lib/common.js`：请求体临时文件使用 UUID，避免监控与页面并发请求在同一毫秒相互覆盖。
 - `.gitignore`：忽略本机 `quota-monitor.json`；README、CHANGELOG 记录使用方式与本阶段平台边界。
-- `PRODUCT.md`：从既有 README、AGENTS、DESIGN 提炼产品上下文，保留现有设计。
+- `docs/PRODUCT.md`：从既有 README、AGENTS、DESIGN 提炼产品上下文，保留现有设计。
 
 ## 已验证（2026-09-18，Windows）
 
 - `npm run check`：169 项，164 通过，0 失败，5 项按平台跳过。
-- `cmd.exe /c build-tray.bat`：成功编译 Windows WebView2 / 托盘宿主。
+- `cmd.exe /c builduild-tray.bat`：成功编译 Windows WebView2 / 托盘宿主。
 - `git diff --check`：通过。
 - 隔离 HTTP 测试：`/api/env`、`/api/current`、配置保存、默认不开启查询、跨来源拒绝、通知标识、备用额度耗尽拒绝切号、用户请求成功切号、旧推荐拒绝。真实 Typeless 进程和外部接口均使用替身。
 - 监控测试：2000 动态上限、未知／非法额度、仅请求额度接口、阈值、候选选择、缓存、并发合并、失败退避、恢复、扫描时换号／关闭功能、周期恢复、新提醒和切换前复查。

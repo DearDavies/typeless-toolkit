@@ -1,7 +1,7 @@
 # Typeless Toolkit 项目协作记忆
 
 本文件是仓库级开发约定。开始修改前先阅读本文与 `README.md`；涉及 `manager.html`
-或其他 UI 的改动，还需阅读 `DESIGN.md` 中的设计和设置页改动规范。若本机存在未跟踪的
+或其他 UI 的改动，还需阅读 `docs/DESIGN.md` 中的设计和设置页改动规范。若本机存在未跟踪的
 `LOCAL_DEVELOPMENT.md`，再读取其中的工作站路径和本地发布注意事项。
 
 ## 仓库与协作流程
@@ -25,12 +25,14 @@
 - `main.cs`：Windows WebView2 独立窗口、单实例和托盘宿主；不承载业务 UI。
 - `src-tauri/`：macOS Tauri 2/WKWebView 宿主，负责窗口、Node 生命周期、原生桥和 App 管理权限写入。
 - `lib/tauri-host.js`：Node 与 Rust 宿主之间的 stdin/stdout JSONL 客户端。
-- `macos-build.json`、`scripts/build-mac-tauri.js`：macOS 四种发行物的统一参数和构建入口。
+- `build/macos-build.json`、`scripts/build-mac-tauri.js`：macOS 四种发行物的统一参数和构建入口。
 - `gen-icon.cs`、`icon/`、`assets/`：Windows ICO/圆角 PNG 与 macOS SVG/ICNS 资源。
 - `test/`：Node 内置测试，当前覆盖付费墙目标检测和官方升级逻辑。
-- `build-tray.bat`：编译 Windows C# 宿主，产物统一写入 `.build/windows/`。
-- `build-release.bat`：更新本机自用 Windows 包，必须保留已有 `data/`。
-- `build-public-release.bat/.ps1`：生成脱敏的 Windows Lite/Portable ZIP 和 SHA256。
+- `windows-build.json`、`toolkit-update.json`：构建与运行时共用的参数，必须留在仓库根目录。
+- `build/build-tray.bat`：编译 Windows C# 宿主，产物统一写入 `.build/windows/`。
+- `build/build-release.bat`：更新本机自用 Windows 包，必须保留已有 `data/`。
+- `build/build-public-release.bat/.ps1`：生成脱敏的 Windows Lite/Portable ZIP 和 SHA256。
+- `docs/`：设计、产品、本地化与安装文档；根目录只保留 `README`、`AGENTS`、`CHANGELOG` 与许可证。
 
 ## 不可破坏的产品约束
 
@@ -59,8 +61,8 @@ npm run check
 `npm run check` 包含所有关键 JS 的语法检查和 `node --test`。改动相应平台后再运行：
 
 ```powershell
-cmd.exe /c build-tray.bat
-cmd.exe /c build-public-release.bat
+cmd.exe /c build\build-tray.bat
+cmd.exe /c build\build-public-release.bat
 ```
 
 macOS 构建在 Mac 上运行：

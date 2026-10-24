@@ -1,5 +1,24 @@
 # 更新日志
 
+## 2.0.3 - Typeless 2.8.3 凭证刷新修复 (2026-10-24)
+
+### 账号全部失效的根因
+
+- Typeless 2.8.3 起，`POST /oauth/refresh_access_token` 也要求客户端签名。旧实现沿用了 2.8.0/2.8.1 时「刷新接口豁免签名」的结论，导致换版后刷新请求一律被服务端以 `20006 This client is not supported` 拒绝。
+- 症状：access token 只有 1 天有效期，过期后**所有账号同时失效**，卡片全部显示「凭据需重新收录」，而 refresh token 本身其实仍然是好的（有效期还有大半年）。
+- 修复：官方域名下所有 API 路径统一附带签名。刷新时传入的是 refresh token，其 JWT 同样带 `subject.user_id`，可直接用于签名，无需额外参数。
+- 已在 Typeless 2.8.3 上实测：修复后过期账号自动恢复，额度读取、切号、词库操作均正常。只有真正被服务端吊销的 refresh token（返回 `402 Invalid refresh token`）才需要重新登录收录。
+
+### 如果升级后仍有个别账号提示「凭据需重新收录」
+
+那是该账号的 refresh token 确实被服务端轮换或撤销了，与本次修复无关，点卡片上的「重新收录凭据」重新抓一次即可。
+
+### 仓库结构
+
+- 构建脚本收拢到 `build/`，设计与本地化文档收拢到 `docs/`；根目录不再散落 `DESIGN.md`、`PRODUCT.md`、`LOCALIZATION.md` 与四个构建脚本。
+- `windows-build.json`、`toolkit-update.json` 仍留在根目录——它们是构建与运行时共用的参数，移动会破坏发布包。
+- 默认 README 改为简体中文，英文版保留为 `README.en.md`。
+
 ## 2.0.2 - 凭据自愈与 macOS 启动修复 (2026-10-18)
 
 ### macOS 切换账号修复（issue #56）

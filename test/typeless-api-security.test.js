@@ -189,8 +189,9 @@ const TEST_KEYS = {
   appVersion: '2.7.0', platformPrefix: 'win_', xEnv: 'prod',
 };
 
-test('刷新接口豁免签名,业务接口需要签名', () => {
-  assert.equal(shouldSignApiPath('/oauth/refresh_access_token'), false);
+test('官方域名下所有 API 路径都要签名(含刷新接口)', () => {
+  // 2.8.3 起刷新接口不再豁免签名:缺签名会被服务端以 20006 拒绝
+  assert.equal(shouldSignApiPath('/oauth/refresh_access_token'), true);
   assert.equal(shouldSignApiPath('/user/get_user_info'), true);
   assert.equal(shouldSignApiPath('/user/dictionary/list?size=500'), true);
   assert.equal(shouldSignApiPath(''), false);

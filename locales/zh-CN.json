@@ -420,7 +420,7 @@
   "ui.2a4a4de8068b": "手动",
   "ui.4afad877551a": "自动",
   "ui.1a8e887b0ceb": "<div class=\"empty\" style=\"padding:20px\">加载词库中…</div>",
-  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\"><span class=\"badge {p8}\" title=\"{p9}\">{p10}</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>本周额度</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">词库</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">个性化</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">登录有效期</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}详情</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
+  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\">{p26}</div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>本周额度</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">词库</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">个性化</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">登录有效期</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}详情</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
   "ui.a24c68ed3038": "<span class=\"badge current\">当前账号</span>",
   "ui.32ed63581820": "串号: 内容是 ",
   "ui.6f7ac64334cd": "未存快照",
@@ -1232,5 +1232,17 @@
   "ui.fc103a1de890": "重新收录失败：",
   "ui.3723db96422e": "当前 Typeless 未登录该账号，请先切换到该账号再重新收录",
   "ui.b3284ca7c30f": "重新收录「",
-  "ui.419f9a2f4760": "」的登录凭据?\n\nTypeless 会临时重启以读取当前登录态，请确保当前已登录该账号。"
+  "ui.419f9a2f4760": "」的登录凭据?\n\nTypeless 会临时重启以读取当前登录态，请确保当前已登录该账号。",
+  "ui.64e7381168ab": "全选当前列表",
+  "ui.df1d957ac470": "选择失效",
+  "ui.78e0b7f7e95a": "清除所选",
+  "ui.38fa352bf0b3": "清除失效账号",
+  "ui.51d85df24ab2": "已选 {p0} · 失效 {p1}",
+  "ui.f0650ea14927": "从管理器移除这 {p0} 个账号？\n{p1}\n\n若已启用 WebDAV 账号同步，其他设备也会同步移除这些管理记录。不会注销 Typeless 账号。",
+  "ui.5af2e2db4770": "这 {p0} 个账号的凭据已失效，将从管理器移除：\n{p1}\n\n仍有效的账号会保留。若已启用 WebDAV 账号同步，其他设备也会同步移除。不会注销 Typeless 账号。",
+  "ui.18b5fb80d969": "已移除 {p0} 个账号",
+  "ui.5f13e5fc17da": "没有凭据失效的账号",
+  "ui.c1c31d8866cc": "账号状态还在读取，请稍后再清除失效账号",
+  "ui.78e243e1e60a": "请先勾选要移除的账号",
+  "ui.0cc95c81a49b": "选择这个账号"
 }

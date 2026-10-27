@@ -100,6 +100,19 @@ function recordAccountDeletion(account) {
   writeAccountSyncTombstones(next);
 }
 
+function removeManagedAccounts(ids) {
+  const wanted = new Set((Array.isArray(ids) ? ids : []).map(id => String(id || '').trim()).filter(Boolean));
+  if (!wanted.size) return [];
+  const accounts = readAccounts();
+  const removed = accounts.filter(account => wanted.has(account.user_id));
+  if (!removed.length) return [];
+  for (const account of removed) recordAccountDeletion(account);
+  writeAccounts(accounts.filter(account => !wanted.has(account.user_id)));
+  dictionarySync.schedule('account-removed');
+  scheduleAccountSync('account-removed');
+  return removed.map(account => account.user_id);
+}
+
 const accountSync = createAccountSyncService({
   readConfigFn: readAccountSyncConfig,
   readAccountsFn: readAccounts,
@@ -1471,17 +1484,20 @@ const server = http.createServer(async (req, res) => {
       dictionarySync.schedule('dictionary-copy');
       return send(res, 200, { status: 'OK', data: { src_count: srcWords.length, imported, already: srcWords.length - missing.length } });
     }
+    // 批量移除账号。只删本机管理记录，并记一条同步墓碑。
+    if (m === 'POST' && p === '/api/accounts/batch-delete') {
+      const body = await readBody(req);
+      const ids = Array.isArray(body.user_ids) ? body.user_ids : null;
+      if (!ids || !ids.length || ids.length > 200 || ids.some(id => typeof id !== 'string' || !id.trim() || id.length > 200)) {
+        return send(res, 400, { status: 'FAIL', msg: '请提供要移除的账号' });
+      }
+      const removed = removeManagedAccounts(ids);
+      return send(res, 200, { status: 'OK', data: { removed: removed.length } });
+    }
     // 删除账号
     const deleteAccountId = m === 'DELETE' ? accountDeleteId(p) : null;
     if (deleteAccountId) {
-      const id = deleteAccountId;
-      let accs = readAccounts();
-      const removed = accs.find(x => x.user_id === id);
-      recordAccountDeletion(removed || { user_id: id });
-      accs = accs.filter(x => x.user_id !== id);
-      writeAccounts(accs);
-      dictionarySync.schedule('account-removed');
-      scheduleAccountSync('account-removed');
+      removeManagedAccounts([deleteAccountId]);
       return send(res, 200, { status: 'OK' });
     }
     // 单账号词库(全量分页)
@@ -1825,7 +1841,7 @@ module.exports = {
   quotaMonitor,
   server, startServer, PORT,
   isTrustedLocalOrigin, isTrustedLocalHost,
-  accountForClient, accountDeleteId, shouldReconnectCurrent,
+  accountForClient, accountDeleteId, removeManagedAccounts, shouldReconnectCurrent,
   createDictionarySyncController, createPaywallMaintenanceController,
   mergeAccountSyncConfig, readAccountSyncConfig,
   waitForTypelessRunning, writeDiagnosticLog, runPaywallPatchTransaction,

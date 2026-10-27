@@ -420,7 +420,7 @@
   "ui.2a4a4de8068b": "Manuell",
   "ui.4afad877551a": "Automatisch",
   "ui.1a8e887b0ceb": "<div class=\"empty\" style=\"padding:20px\">Wörterbuch wird geladen…</div>",
-  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\"><span class=\"badge {p8}\" title=\"{p9}\">{p10}</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>Kontingent diese Woche</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">Wörterbuch</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">Personalisierung</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">Anmeldegültigkeit</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}Details</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
+  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\">{p26}</div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>Kontingent diese Woche</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">Wörterbuch</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">Personalisierung</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">Anmeldegültigkeit</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}Details</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
   "ui.a24c68ed3038": "<span class=\"badge current\">Aktuelles Konto</span>",
   "ui.32ed63581820": "Falsches Konto: Inhalt ist ",
   "ui.6f7ac64334cd": "Kein Snapshot",
@@ -1232,5 +1232,17 @@
   "ui.fc103a1de890": "Neuerfassung fehlgeschlagen: ",
   "ui.3723db96422e": "Typeless ist bei diesem Konto nicht angemeldet. Wechseln Sie zuerst zu diesem Konto.",
   "ui.b3284ca7c30f": "Anmeldedaten für „",
-  "ui.419f9a2f4760": "“ neu erfassen?\n\nTypeless wird kurz neu gestartet, um die aktuelle Sitzung zu lesen. Stellen Sie sicher, dass dieses Konto angemeldet ist."
+  "ui.419f9a2f4760": "“ neu erfassen?\n\nTypeless wird kurz neu gestartet, um die aktuelle Sitzung zu lesen. Stellen Sie sicher, dass dieses Konto angemeldet ist.",
+  "ui.64e7381168ab": "Alle in dieser Liste auswählen",
+  "ui.df1d957ac470": "Ungültige auswählen",
+  "ui.78e0b7f7e95a": "Auswahl entfernen",
+  "ui.38fa352bf0b3": "Ungültige Konten entfernen",
+  "ui.51d85df24ab2": "{p0} ausgewählt · {p1} ungültig",
+  "ui.f0650ea14927": "Diese {p0} Konten aus der Verwaltung entfernen?\n{p1}\n\nWenn die Kontosynchronisierung aktiv ist, entfernen andere Geräte diese Einträge ebenfalls. Das Typeless-Konto selbst wird nicht gelöscht.",
+  "ui.5af2e2db4770": "Diese {p0} Konten haben ungültige Anmeldedaten und werden entfernt:\n{p1}\n\nNoch gültige Konten bleiben erhalten. Wenn die Synchronisierung aktiv ist, entfernen andere Geräte sie ebenfalls. Das Typeless-Konto selbst wird nicht gelöscht.",
+  "ui.18b5fb80d969": "{p0} Konten entfernt",
+  "ui.5f13e5fc17da": "Keine Konten mit ungültigen Anmeldedaten",
+  "ui.c1c31d8866cc": "Der Kontostatus wird noch geladen. Entferne ungültige Konten gleich noch einmal.",
+  "ui.78e243e1e60a": "Wähle zuerst die Konten aus, die entfernt werden sollen",
+  "ui.0cc95c81a49b": "Dieses Konto auswählen"
 }

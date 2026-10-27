@@ -420,7 +420,7 @@
   "ui.2a4a4de8068b": "Manual",
   "ui.4afad877551a": "Auto",
   "ui.1a8e887b0ceb": "<div class=\"empty\" style=\"padding:20px\">Loading dictionary…</div>",
-  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\"><span class=\"badge {p8}\" title=\"{p9}\">{p10}</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>Quota this week</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">Dictionary</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">Personalization</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">Sign-in validity</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}Details</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
+  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\">{p26}</div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>Quota this week</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">Dictionary</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">Personalization</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">Sign-in validity</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}Details</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
   "ui.a24c68ed3038": "<span class=\"badge current\">Current account</span>",
   "ui.32ed63581820": "Mismatch: content is ",
   "ui.6f7ac64334cd": "No snapshot",
@@ -1232,5 +1232,17 @@
   "ui.fc103a1de890": "Recapture failed: ",
   "ui.3723db96422e": "Typeless is not signed in to this account. Switch to it first, then recapture.",
   "ui.b3284ca7c30f": "Recapture credentials for “",
-  "ui.419f9a2f4760": "”?\n\nTypeless will restart briefly to read the current session. Make sure it is signed in to this account."
+  "ui.419f9a2f4760": "”?\n\nTypeless will restart briefly to read the current session. Make sure it is signed in to this account.",
+  "ui.64e7381168ab": "Select all in this list",
+  "ui.df1d957ac470": "Select invalid",
+  "ui.78e0b7f7e95a": "Remove selected",
+  "ui.38fa352bf0b3": "Remove invalid accounts",
+  "ui.51d85df24ab2": "{p0} selected · {p1} invalid",
+  "ui.f0650ea14927": "Remove these {p0} accounts from the manager?\n{p1}\n\nIf account sync is on, other devices remove these records too. This does not delete the Typeless account.",
+  "ui.5af2e2db4770": "These {p0} accounts have invalid credentials and will be removed:\n{p1}\n\nAccounts that still work are kept. If account sync is on, other devices remove these records too. This does not delete the Typeless account.",
+  "ui.18b5fb80d969": "Removed {p0} accounts",
+  "ui.5f13e5fc17da": "No accounts with invalid credentials",
+  "ui.c1c31d8866cc": "Account status is still loading. Remove invalid accounts again in a moment.",
+  "ui.78e243e1e60a": "Select accounts to remove first",
+  "ui.0cc95c81a49b": "Select this account"
 }

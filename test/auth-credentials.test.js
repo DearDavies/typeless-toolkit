@@ -368,3 +368,73 @@ test('activates a cloud account through auth:login and creates its local snapsho
   assert.equal(result.account.token, access);
   assert.deepEqual(events, ['preserve', 'debug', 'onboarding', 'snapshot:user-1', 'clean:true']);
 });
+
+test('waits for app-storage.json before onboarding and snapshot', async () => {
+  const access = accessToken('user-2', 3600);
+  const refresh = refreshToken('user-2');
+  let accounts = [{ user_id: 'user-2', email: 'two@example.test', refresh_token: refresh, cloud_only: true }];
+  const events = [];
+  const identities = [
+    { user_id: 'user-1', email: 'one@example.test' },
+    { user_id: 'user-1', email: 'one@example.test' },
+    { user_id: 'user-2', email: 'two@example.test' },
+  ];
+  const activate = createAccountActivator({
+    ensureAccessTokenFn: async () => access,
+    portUpFn: async () => true,
+    isAppRunningFn: async () => true,
+    restartWithDebugFn: async () => 9333,
+    restartCleanFn: async () => {},
+    withCDPFn: async callback => callback(null, async () => JSON.stringify({ current: { user_id: 'user-2' } })),
+    preserveCurrentFn: () => events.push('preserve'),
+    applyOnboardingFn: () => events.push('onboarding'),
+    saveSnapshotFn: userId => events.push(`snapshot:${userId}`),
+    readAccountsFn: () => accounts,
+    writeAccountsFn: next => { accounts = next; },
+    readLiveIdentityFn: () => {
+      events.push('read');
+      return identities.shift() || identities[0];
+    },
+    identityTimeoutMs: 1500,
+    identityIntervalMs: 500,
+    settleFn: async ms => { events.push(`settle:${ms}`); },
+    nowFn: () => NOW_MS,
+    typelessExe: 'Typeless.exe',
+    userDataDir: 'userdata',
+  });
+
+  const result = await activate(accounts[0]);
+  assert.equal(result.account.cloud_only, false);
+  assert.deepEqual(events, [
+    'preserve', 'read', 'settle:500', 'read', 'settle:500', 'read', 'settle:500', 'onboarding', 'snapshot:user-2',
+  ]);
+});
+
+test('does not patch onboarding while the live file is still the previous account', async () => {
+  const access = accessToken('user-2', 3600);
+  let accounts = [{ user_id: 'user-2', refresh_token: refreshToken('user-2'), cloud_only: true }];
+  const events = [];
+  const activate = createAccountActivator({
+    ensureAccessTokenFn: async () => access,
+    portUpFn: async () => false,
+    isAppRunningFn: async () => true,
+    restartWithDebugFn: async () => { events.push('debug'); return 9333; },
+    restartCleanFn: async () => events.push('clean'),
+    withCDPFn: async callback => callback(null, async () => JSON.stringify({ current: { user_id: 'user-1' } })),
+    preserveCurrentFn: () => {},
+    applyOnboardingFn: () => events.push('onboarding'),
+    saveSnapshotFn: () => events.push('snapshot'),
+    readAccountsFn: () => accounts,
+    writeAccountsFn: next => { accounts = next; },
+    readLiveIdentityFn: () => ({ user_id: 'user-1', email: 'one@example.test' }),
+    identityTimeoutMs: 1000,
+    identityIntervalMs: 500,
+    settleFn: async () => {},
+    typelessExe: 'Typeless.exe',
+    userDataDir: 'userdata',
+  });
+
+  await assert.rejects(() => activate(accounts[0]), /本机登录文件仍是 one@example.test/);
+  assert.deepEqual(events, ['debug', 'clean']);
+  assert.equal(accounts[0].cloud_only, true);
+});

@@ -420,7 +420,7 @@
   "ui.2a4a4de8068b": "수동",
   "ui.4afad877551a": "자동",
   "ui.1a8e887b0ceb": "<div class=\"empty\" style=\"padding:20px\">사전 불러오는 중…</div>",
-  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\"><span class=\"badge {p8}\" title=\"{p9}\">{p10}</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>이번 주 할당량</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">사전</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">개인화</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">로그인 유효 기간</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24} 상세</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
+  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\">{p26}</div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>이번 주 할당량</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">사전</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">개인화</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">로그인 유효 기간</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24} 상세</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
   "ui.a24c68ed3038": "<span class=\"badge current\">현재 계정</span>",
   "ui.32ed63581820": "계정 불일치: 내용은 ",
   "ui.6f7ac64334cd": "스냅샷 없음",
@@ -1232,5 +1232,17 @@
   "ui.fc103a1de890": "재수집 실패: ",
   "ui.3723db96422e": "Typeless가 이 계정에 로그인되어 있지 않습니다. 먼저 전환한 후 다시 수집하세요.",
   "ui.b3284ca7c30f": "“",
-  "ui.419f9a2f4760": "”의 로그인 자격 증명을 다시 수집할까요?\n\n현재 로그인 상태를 읽기 위해 Typeless가 잠시 다시 시작됩니다. 이 계정으로 로그인되어 있는지 확인하세요."
+  "ui.419f9a2f4760": "”의 로그인 자격 증명을 다시 수집할까요?\n\n현재 로그인 상태를 읽기 위해 Typeless가 잠시 다시 시작됩니다. 이 계정으로 로그인되어 있는지 확인하세요.",
+  "ui.64e7381168ab": "현재 목록 전체 선택",
+  "ui.df1d957ac470": "무효 계정 선택",
+  "ui.78e0b7f7e95a": "선택 항목 제거",
+  "ui.38fa352bf0b3": "무효 계정 제거",
+  "ui.51d85df24ab2": "선택 {p0} · 무효 {p1}",
+  "ui.f0650ea14927": "관리 도구에서 이 {p0}개 계정을 제거할까요?\n{p1}\n\n계정 동기화가 켜져 있으면 다른 기기에서도 이 기록이 제거됩니다. Typeless 계정 자체는 삭제하지 않습니다.",
+  "ui.5af2e2db4770": "자격 증명이 무효인 {p0}개 계정을 제거합니다:\n{p1}\n\n아직 유효한 계정은 유지됩니다. 계정 동기화가 켜져 있으면 다른 기기에서도 제거됩니다. Typeless 계정 자체는 삭제하지 않습니다.",
+  "ui.18b5fb80d969": "{p0}개 계정을 제거했습니다",
+  "ui.5f13e5fc17da": "자격 증명이 무효인 계정이 없습니다",
+  "ui.c1c31d8866cc": "계정 상태를 아직 읽는 중입니다. 잠시 후 다시 제거하세요",
+  "ui.78e243e1e60a": "먼저 제거할 계정을 선택하세요",
+  "ui.0cc95c81a49b": "이 계정 선택"
 }

@@ -392,3 +392,15 @@ test('2.8.1 语义结构下密钥形态不合法时拒绝返回', () => {
     /不合法|未能定位|合法密钥/
   );
 });
+
+// 回归:2.8.3 的旋转池把签名声明挤到文件 30KB 之后。只扫开头会看不到密钥。
+test('2.8.3 声明位于旋转池之后时仍能按语义区分密钥', () => {
+  const bundle = ' '.repeat(40000) + fakeRotatedSemanticBundle();
+  const keys = extractSignatureKeys(buildAsar({ '/dist/main/index.js': bundle }));
+  assert.equal(keys.aesPassphrase, FAKE_VN);
+  assert.equal(keys.hmacSecret, FAKE_EU);
+  assert.equal(keys.appVersion, '2.8.1');
+  assert.equal(keys.platformPrefix, 'win_');
+  assert.equal(keys.xEnv, 'prod');
+  assert.equal(keys.format, 'semantic-usage');
+});

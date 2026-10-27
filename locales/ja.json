@@ -420,7 +420,7 @@
   "ui.2a4a4de8068b": "手動",
   "ui.4afad877551a": "自動",
   "ui.1a8e887b0ceb": "<div class=\"empty\" style=\"padding:20px\">辞書を読み込んでいます…</div>",
-  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\"><span class=\"badge {p8}\" title=\"{p9}\">{p10}</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>今週の残量</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">辞書</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">パーソナライズ</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">ログイン有効期限</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}の詳細</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
+  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\">{p26}</div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>今週の残量</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">辞書</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">パーソナライズ</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">ログイン有効期限</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}の詳細</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
   "ui.a24c68ed3038": "<span class=\"badge current\">現在のアカウント</span>",
   "ui.32ed63581820": "別アカウント: 内容は ",
   "ui.6f7ac64334cd": "スナップショット未保存",
@@ -1232,5 +1232,17 @@
   "ui.fc103a1de890": "再取得に失敗しました：",
   "ui.3723db96422e": "Typeless がこのアカウントにログインしていません。先に切り替えてから再取得してください。",
   "ui.b3284ca7c30f": "「",
-  "ui.419f9a2f4760": "」のログイン認証情報を再取得しますか?\n\n現在のログイン状態を読み取るため Typeless を一時的に再起動します。このアカウントでログインしていることを確認してください。"
+  "ui.419f9a2f4760": "」のログイン認証情報を再取得しますか?\n\n現在のログイン状態を読み取るため Typeless を一時的に再起動します。このアカウントでログインしていることを確認してください。",
+  "ui.64e7381168ab": "この一覧をすべて選択",
+  "ui.df1d957ac470": "無効を選択",
+  "ui.78e0b7f7e95a": "選択を削除",
+  "ui.38fa352bf0b3": "無効なアカウントを削除",
+  "ui.51d85df24ab2": "選択 {p0} · 無効 {p1}",
+  "ui.f0650ea14927": "この {p0} 件を管理ツールから削除しますか？\n{p1}\n\nアカウント同期が有効な場合、他の端末の管理記録も削除されます。Typeless アカウント自体は削除しません。",
+  "ui.5af2e2db4770": "資格情報が無効な {p0} 件を削除します：\n{p1}\n\n有効なアカウントは残します。アカウント同期が有効な場合、他の端末の管理記録も削除されます。Typeless アカウント自体は削除しません。",
+  "ui.18b5fb80d969": "{p0} 件を削除しました",
+  "ui.5f13e5fc17da": "資格情報が無効なアカウントはありません",
+  "ui.c1c31d8866cc": "アカウント状態を読み込み中です。しばらくしてから無効なアカウントを削除してください",
+  "ui.78e243e1e60a": "削除するアカウントを先に選択してください",
+  "ui.0cc95c81a49b": "このアカウントを選択"
 }

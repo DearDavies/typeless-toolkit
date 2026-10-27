@@ -420,7 +420,7 @@
   "ui.2a4a4de8068b": "Manuel",
   "ui.4afad877551a": "Auto",
   "ui.1a8e887b0ceb": "<div class=\"empty\" style=\"padding:20px\">Chargement du dictionnaire…</div>",
-  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\"><span class=\"badge {p8}\" title=\"{p9}\">{p10}</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>Quota de la semaine</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">Dictionnaire</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">Personnalisation</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">Validité de la connexion</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}Détails</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
+  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\">{p26}</div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>Quota de la semaine</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">Dictionnaire</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">Personnalisation</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">Validité de la connexion</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}Détails</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
   "ui.a24c68ed3038": "<span class=\"badge current\">Compte actuel</span>",
   "ui.32ed63581820": "Compte erroné : le contenu est ",
   "ui.6f7ac64334cd": "Aucun instantané",
@@ -1232,5 +1232,17 @@
   "ui.fc103a1de890": "Échec de la récupération : ",
   "ui.3723db96422e": "Typeless n’est pas connecté à ce compte. Basculez dessus puis réessayez.",
   "ui.b3284ca7c30f": "Récupérer les identifiants de «",
-  "ui.419f9a2f4760": "» ?\n\nTypeless va redémarrer brièvement pour lire la session actuelle. Assurez-vous d’être connecté à ce compte."
+  "ui.419f9a2f4760": "» ?\n\nTypeless va redémarrer brièvement pour lire la session actuelle. Assurez-vous d’être connecté à ce compte.",
+  "ui.64e7381168ab": "Tout sélectionner dans cette liste",
+  "ui.df1d957ac470": "Sélectionner les invalides",
+  "ui.78e0b7f7e95a": "Retirer la sélection",
+  "ui.38fa352bf0b3": "Retirer les comptes invalides",
+  "ui.51d85df24ab2": "{p0} sélectionnés · {p1} invalides",
+  "ui.f0650ea14927": "Retirer ces {p0} comptes du gestionnaire ?\n{p1}\n\nSi la synchronisation des comptes est activée, les autres appareils retirent aussi ces enregistrements. Le compte Typeless n'est pas supprimé.",
+  "ui.5af2e2db4770": "Ces {p0} comptes ont des identifiants invalides et seront retirés :\n{p1}\n\nLes comptes encore valides sont conservés. Si la synchronisation est activée, les autres appareils les retirent aussi. Le compte Typeless n'est pas supprimé.",
+  "ui.18b5fb80d969": "{p0} comptes retirés",
+  "ui.5f13e5fc17da": "Aucun compte avec des identifiants invalides",
+  "ui.c1c31d8866cc": "L'état des comptes est encore en cours de chargement. Réessayez de retirer les comptes invalides dans un instant.",
+  "ui.78e243e1e60a": "Sélectionnez d'abord les comptes à retirer",
+  "ui.0cc95c81a49b": "Sélectionner ce compte"
 }

@@ -184,13 +184,24 @@
   .sc-manual.on { display:flex; gap:8px; align-items:center; }
   .sc-manual input { flex:1; }
 
-  /* 搜索 / 排序 */
-  .filterbar { display:flex; gap:10px; align-items:center; margin-bottom:14px; flex-wrap:wrap; }
-  .search { position:relative; flex:1; min-width:200px; }
-  .search input { width:100%; border:1px solid var(--line); background:var(--card); color:var(--text); border-radius:10px; padding:9px 12px 9px 34px; font-size:13px; outline:none; }
-  .search input:focus { border-color:var(--accent); }
-  .search::before { content:"⌕"; position:absolute; left:11px; top:50%; transform:translateY(-50%); color:var(--sub); font-size:15px; }
-  select.sort { border:1px solid var(--line); background:var(--card); color:var(--text); border-radius:10px; padding:9px 12px; font-size:13px; cursor:pointer; outline:none; }
+  /* 搜索 / 排序 / 批量：和工具栏按钮同一高度、同一圆角，不用系统下拉外观 */
+  .filterbar { display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
+  .filter-main { display:flex; gap:8px; align-items:center; min-width:0; flex-wrap:wrap; }
+  .filter-check { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; flex:none; border:1px solid var(--line); border-radius:8px; background:var(--card); }
+  .filter-check input,.card-check input { width:15px; height:15px; margin:0; accent-color:var(--accent); cursor:pointer; }
+  .search { display:flex; align-items:center; gap:8px; flex:1 1 180px; min-width:0; height:36px; padding:0 12px; border:1px solid var(--line); border-radius:8px; background:var(--card); }
+  .search:focus-within { border-color:var(--accent); }
+  .search-icon { width:15px; height:15px; color:var(--sub); flex:none; }
+  .search input { flex:1; min-width:0; height:34px; border:0; padding:0; background:transparent; color:var(--text); font-size:13px; outline:none; }
+  .sort-wrap { position:relative; flex:none; }
+  select.sort { appearance:none; -webkit-appearance:none; height:36px; margin:0; min-width:132px; border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--text); padding:0 32px 0 12px; font-size:13px; font-weight:500; line-height:34px; cursor:pointer; outline:none; }
+  select.sort:focus { border-color:var(--accent); }
+  .sort-wrap::after { content:""; position:absolute; right:13px; top:50%; width:7px; height:7px; border-right:1.5px solid var(--sub); border-bottom:1.5px solid var(--sub); transform:translateY(-70%) rotate(45deg); pointer-events:none; }
+  .batchbar { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .batch-count { color:var(--sub); font-size:12px; margin-right:2px; }
+  .card-check { position:absolute; z-index:2; top:12px; right:12px; display:flex; align-items:center; justify-content:center; width:22px; height:22px; }
+  .card.selected { border-color:var(--accent); }
+  .card .settings-note { margin-top:8px; font-size:11px; line-height:1.45; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 
   /* 保留原版网格卡片：每个账号内部聚合信息，不按账号数撑大卡片。 */
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px; }
@@ -198,7 +209,7 @@
   .card:hover { border-color:color-mix(in srgb,var(--accent) 55%,var(--line)); box-shadow:0 4px 16px rgba(16,24,40,.08); }
   .card.active { border-color:var(--accent); box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 45%,transparent),var(--shadow); }
   .card.invalid { opacity:.82; }
-  .chead { display:flex; align-items:center; gap:11px; min-width:0; margin-bottom:14px; }
+  .chead { display:flex; align-items:center; gap:11px; min-width:0; margin-bottom:14px; padding-right:22px; }
   .avatar { width:48px; height:48px; border-radius:9px; background:var(--bg2); color:var(--sub); display:flex; align-items:center; justify-content:center; font-weight:500; font-size:24px; flex:none; }
   .card .avatar { width:38px; height:38px; font-size:17px; background:var(--accent-soft); color:var(--accent2); font-weight:650; }
   .card.active .avatar { background:var(--accent-soft); color:var(--accent2); }
@@ -240,11 +251,11 @@
   .mini .m .v { font-size:15px; font-weight:650; margin-top:4px; font-variant-numeric:tabular-nums; }
   .mini .m .v.mut { color:var(--sub); font-weight:600; }
 
-  .cfoot { display:flex; align-items:center; justify-content:space-between; gap:8px; border-top:1px solid var(--line); padding-top:12px; margin-top:auto; }
+  .cfoot { display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; border-top:1px solid var(--line); padding-top:12px; margin-top:auto; }
   .snap { font-size:11px; color:var(--sub); display:inline-flex; align-items:center; gap:5px; }
   .snap .d { width:6px; height:6px; border-radius:50%; background:var(--sub); }
   .snap.has .d { background:var(--ok); }
-  .cfoot .acts { display:flex; gap:4px; align-items:center; }
+  .cfoot .acts { display:flex; gap:4px; align-items:center; flex-wrap:wrap; justify-content:flex-end; margin-left:auto; }
   .cfoot .btn:not(.primary) { background:transparent; border-color:transparent; }
   .cfoot .btn.switch-btn { color:var(--accent2); background:var(--accent-soft); min-width:76px; }
   .cfoot .btn.current-action { background:var(--bg2); color:var(--sub); }
@@ -431,6 +442,7 @@
   <symbol id="ui-details" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6m-6 4h6m-6 4h4"/></symbol>
   <symbol id="ui-chart" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15 2v7h7a8 8 0 0 0-7-7z"/></symbol>
   <symbol id="ui-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="ui-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-3.5-3.5"/></symbol>
   <symbol id="ui-keyboard" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h1m4 0h2m4 0h1M6 12h1m4 0h2m4 0h1M7 16h10"/></symbol>
 </svg>
 <div class="topbar" id="homeTopbar">
@@ -489,16 +501,32 @@
     <button class="btn" onclick="openSettings('general')">__I18N(ui.27909c5a44aa)__</button>
   </section>
 
-  <!-- 搜索排序 -->
+  <!-- 搜索、排序、批量 -->
   <div class="filterbar" id="filterbar" style="display:none">
-    <div class="search"><input id="q" placeholder="__I18N(ui.cdc55bbc5713)__" oninput="render()"></div>
-    <select class="sort" id="sort" onchange="render()">
-      <option value="added">__I18N(ui.fde89c7992ea)__</option>
-      <option value="name">__I18N(ui.73481c936d15)__</option>
-      <option value="usage">__I18N(ui.78a6bdbd8503)__</option>
-      <option value="remain">__I18N(ui.2f78ed974054)__</option>
-      <option value="dict">__I18N(ui.a65f583ee247)__</option>
-    </select>
+    <div class="filter-main">
+      <label class="filter-check" title="__I18N(ui.64e7381168ab)__">
+        <input id="selectVisible" type="checkbox" aria-label="__I18N(ui.64e7381168ab)__" onchange="toggleVisibleSelection(this.checked)">
+      </label>
+      <div class="search">
+        <svg class="ui-icon search-icon" aria-hidden="true"><use href="#ui-search"/></svg>
+        <input id="q" placeholder="__I18N(ui.cdc55bbc5713)__" oninput="render()" aria-label="__I18N(ui.cdc55bbc5713)__">
+      </div>
+      <div class="sort-wrap">
+        <select class="sort" id="sort" onchange="render()" aria-label="__I18N(ui.fde89c7992ea)__">
+          <option value="added">__I18N(ui.fde89c7992ea)__</option>
+          <option value="name">__I18N(ui.73481c936d15)__</option>
+          <option value="usage">__I18N(ui.78a6bdbd8503)__</option>
+          <option value="remain">__I18N(ui.2f78ed974054)__</option>
+          <option value="dict">__I18N(ui.a65f583ee247)__</option>
+        </select>
+      </div>
+    </div>
+    <div class="batchbar" id="batchbar">
+      <span class="batch-count" id="batchCount"></span>
+      <button type="button" class="btn small" onclick="selectBrokenAccounts()">__I18N(ui.df1d957ac470)__</button>
+      <button type="button" class="btn small" id="clearSelectedBtn" onclick="clearSelectedAccounts()">__I18N(ui.78e0b7f7e95a)__</button>
+      <button type="button" class="btn small danger" id="clearBrokenBtn" onclick="clearBrokenAccounts()">__I18N(ui.38fa352bf0b3)__</button>
+    </div>
   </div>
 
   <div id="grid" class="grid"></div>
@@ -962,6 +990,8 @@ async function apiTimed(p,opt={},timeoutMs=30000){
   finally{ clearTimeout(timer); }
 }
 let ACCOUNTS = [], CUR_ID = null, curDetail = null, curWords = [], captureBusy = false, currentBusy = false;
+const SELECTED = new Set();
+let renderedAccountIds = [];
 let DICT_SYNC_STATUS = null, MASTER_ORIGINAL = [];
 let ENV_INFO = null, PAYWALL_MAINTENANCE = null, PAYWALL_NOTICE_AT = null, PENDING_MAC_ACTION = null, PAYWALL_SETTINGS_OPENED = false, PAYWALL_FOCUS_RETRY_BUSY = false;
 let TOOLKIT_UPDATE = null, TOOLKIT_UPDATE_POLL = null, TOOLKIT_UPDATE_NOTIFIED = false;
@@ -1375,7 +1405,7 @@ async function loadAccounts(){
   if(quick.status==='OK'){
     ACCOUNTS=quick.data||[];
     render(); renderStats();
-    document.getElementById('filterbar').style.display = ACCOUNTS.length>3?'flex':'none';
+    document.getElementById('filterbar').style.display = ACCOUNTS.length?'flex':'none';
     // 完整状态在后台补;失败时保留已经画好的卡片
     api('/api/accounts').then(r=>{
       if(r.status!=='OK') return;
@@ -1388,7 +1418,76 @@ async function loadAccounts(){
   if(r.status!=='OK'){ g.innerHTML='<div class="empty">'+esc(r.msg||i18nText("ui.f6b7a41e5600","加载失败"))+'</div>'; return; }
   ACCOUNTS=r.data||[];
   render(); renderStats();
-  document.getElementById('filterbar').style.display = ACCOUNTS.length>3?'flex':'none';
+  document.getElementById('filterbar').style.display = ACCOUNTS.length?'flex':'none';
+}
+function accountIsBroken(account){
+  return ['expired','refresh_error'].includes(account?.live?.credential_state);
+}
+function accountPickLabel(account){
+  return account?.email || account?.nickname || account?.user_id || '';
+}
+function accountNameList(list){
+  const names=list.map(accountPickLabel).filter(Boolean);
+  const shown=names.slice(0,8);
+  return shown.join('\n')+(names.length>shown.length?'\n…':'');
+}
+function toggleAccountSelect(id, on){
+  if(on) SELECTED.add(id); else SELECTED.delete(id);
+  render();
+}
+function toggleVisibleSelection(on){
+  renderedAccountIds.forEach(id=>{ if(on) SELECTED.add(id); else SELECTED.delete(id); });
+  render();
+}
+function selectBrokenAccounts(){
+  const broken=ACCOUNTS.filter(accountIsBroken);
+  if(!broken.length){
+    const loading=ACCOUNTS.some(account=>account.live?.loading);
+    toast(loading?i18nText("ui.c1c31d8866cc","账号状态还在读取，请稍后再清除失效账号"):i18nText("ui.5f13e5fc17da","没有凭据失效的账号"), loading?'':'err');
+    return;
+  }
+  broken.forEach(account=>SELECTED.add(account.user_id));
+  render();
+}
+async function deleteAccountIds(ids, message){
+  const unique=[...new Set(ids.filter(Boolean))];
+  if(!unique.length){ toast(i18nText("ui.78e243e1e60a","请先勾选要移除的账号"),'err'); return; }
+  if(!await appConfirm(message)) return;
+  const r=await api('/api/accounts/batch-delete',{method:'POST',body:JSON.stringify({user_ids:unique})});
+  if(r.status!=='OK'){ toast(r.msg||i18nText("ui.f1e2eec4ced6","移除失败"),'err'); return; }
+  unique.forEach(id=>SELECTED.delete(id));
+  if(curDetail && unique.includes(curDetail.user_id)) closeModal('detailMask');
+  await loadAccounts();
+  toast(i18nText("ui.18b5fb80d969","已移除 {p0} 个账号",[r.data?.removed??unique.length]),'ok');
+}
+async function clearSelectedAccounts(){
+  const chosen=ACCOUNTS.filter(account=>SELECTED.has(account.user_id));
+  if(!chosen.length){ toast(i18nText("ui.78e243e1e60a","请先勾选要移除的账号"),'err'); return; }
+  await deleteAccountIds(chosen.map(account=>account.user_id), i18nText("ui.f0650ea14927","从管理器移除这 {p0} 个账号？\n{p1}\n\n若已启用 WebDAV 账号同步，其他设备也会同步移除这些管理记录。不会注销 Typeless 账号。",[chosen.length, accountNameList(chosen)]));
+}
+async function clearBrokenAccounts(){
+  const loading=ACCOUNTS.some(account=>account.live?.loading);
+  const broken=ACCOUNTS.filter(accountIsBroken);
+  if(!broken.length){
+    toast(loading?i18nText("ui.c1c31d8866cc","账号状态还在读取，请稍后再清除失效账号"):i18nText("ui.5f13e5fc17da","没有凭据失效的账号"), loading?'':'err');
+    return;
+  }
+  await deleteAccountIds(broken.map(account=>account.user_id), i18nText("ui.5af2e2db4770","这 {p0} 个账号的凭据已失效，将从管理器移除：\n{p1}\n\n仍有效的账号会保留。若已启用 WebDAV 账号同步，其他设备也会同步移除。不会注销 Typeless 账号。",[broken.length, accountNameList(broken)]));
+}
+function updateBatchBar(){
+  const count=document.getElementById('batchCount');
+  const broken=ACCOUNTS.filter(accountIsBroken).length;
+  if(count) count.textContent=i18nText("ui.51d85df24ab2","已选 {p0} · 失效 {p1}",[SELECTED.size, broken]);
+  const selectedBtn=document.getElementById('clearSelectedBtn');
+  const brokenBtn=document.getElementById('clearBrokenBtn');
+  if(selectedBtn) selectedBtn.disabled=SELECTED.size===0;
+  if(brokenBtn) brokenBtn.disabled=broken===0;
+  const box=document.getElementById('selectVisible');
+  if(box){
+    const picked=renderedAccountIds.filter(id=>SELECTED.has(id)).length;
+    box.checked=renderedAccountIds.length>0 && picked===renderedAccountIds.length;
+    box.indeterminate=picked>0 && picked<renderedAccountIds.length;
+  }
 }
 function sortAccounts(list){
   const s=document.getElementById('sort').value;
@@ -1404,9 +1503,15 @@ function sortAccounts(list){
   return arr;
 }
 function render(){
+  if (typeof SELECTED !== 'undefined') {
+    for (const id of [...SELECTED]) {
+      if (!ACCOUNTS.some(account => account.user_id === id)) SELECTED.delete(id);
+    }
+  }
   function accountRoleBadge(live,savedRole){
+    const broken=['expired','refresh_error'].includes(live.credential_state);
     if(live.loading) return {label:i18nText("ui.b21b631cd5c1","读取中"),className:'mut',title:''};
-    if(live.token_valid===false) return {label:i18nText("ui.47daa24eec17","失效"),className:'invalid',title:live._err||''};
+    if(live.token_valid===false && !broken) return {label:i18nText("ui.47daa24eec17","失效"),className:'invalid',title:live._err||''};
     const roles=Array.isArray(live.user_info?.roles)?live.user_info.roles:[];
     if(!roles.length){
       if(live.credential_state==='api_error') return {label:i18nText("ui.b1f5e37aebf4","套餐读取失败"),className:'warn',title:live._err||''};
@@ -1426,11 +1531,12 @@ function render(){
     return {label:labels.join(' / ')||i18nText("ui.8e725ad94921","套餐未返回"),className:roles.some(role=>role?.name==='pro_trial'||role?.name==='pro')?'pro':roles.some(role=>role?.name==='free')?'free':'',title};
   }
   const g=document.getElementById('grid');
-  if(!ACCOUNTS.length){ g.innerHTML=i18nText("ui.8024bc85fe83","<div class=\"empty\"><div class=\"big\">👤</div>还没有账号。<br>先在 Typeless 登录你的账号，然后在这里收录。<br><button class=\"btn primary\" style=\"margin:16px auto 0\" onclick=\"addAccount()\">＋ 添加当前账号</button></div>"); return; }
+  if(!ACCOUNTS.length){ renderedAccountIds=[]; g.innerHTML=i18nText("ui.8024bc85fe83","<div class=\"empty\"><div class=\"big\">👤</div>还没有账号。<br>先在 Typeless 登录你的账号，然后在这里收录。<br><button class=\"btn primary\" style=\"margin:16px auto 0\" onclick=\"addAccount()\">＋ 添加当前账号</button></div>"); if(typeof updateBatchBar==='function') updateBatchBar(); return; }
   const q=(document.getElementById('q').value||'').trim().toLowerCase();
   let list=ACCOUNTS.filter(a=>!q||(a.nickname||'').toLowerCase().includes(q)||(a.email||'').toLowerCase().includes(q));
   list=sortAccounts(list);
-  if(!list.length){ g.innerHTML=i18nText("ui.7810b6ac7807","<div class=\"empty\">没有匹配的账号</div>"); return; }
+  renderedAccountIds=list.map(a=>a.user_id);
+  if(!list.length){ g.innerHTML=i18nText("ui.7810b6ac7807","<div class=\"empty\">没有匹配的账号</div>"); if(typeof updateBatchBar==='function') updateBatchBar(); return; }
   g.innerHTML=list.map(a=>{
     const live=a.live||{}, u=live.usage||{};
     const ok=Number.isFinite(u.week_word_usage_value)&&u.week_word_usage_value>=0&&Number.isFinite(u.week_word_usage_limit)&&u.week_word_usage_limit>0;
@@ -1446,7 +1552,7 @@ function render(){
     const credentialNeedsUpdate=live.credential_state==='legacy';
     // 「登录有效期」按 JWT exp 计算,失效账号照样显示几百天,容易误导成「凭据可用」。
     // 凭据失效时直接改口径,避免用户以为还能继续用。
-    const daysTxt = credentialNeedsUpdate?i18nText("ui.d2b913994fef","需更新"):(credentialBroken?i18nText("ui.d2b913994fef","需更新"):(days==null?'—':(days<0?i18nText("ui.1354374f768e","已过期"):days+i18nText("ui.c3304d1e49e3","天"))));
+    const daysTxt = live.loading?'…':(credentialNeedsUpdate?i18nText("ui.d2b913994fef","需更新"):(credentialBroken?i18nText("ui.d2b913994fef","需更新"):(days==null?'—':(days<0?i18nText("ui.1354374f768e","已过期"):days+i18nText("ui.c3304d1e49e3","天")))));
     const daysCls = (credentialNeedsUpdate||credentialBroken)?'warn':(days==null?'mut':'');
     // 徽章分层:当前登录态 与 凭据可用性 分开表达,不再用一句「失效」盖住两种含义
     const credentialBadge = credentialBroken
@@ -1460,10 +1566,15 @@ function render(){
     // 徽章区:原有套餐/状态徽章 + 凭据失效徽章
     const badges = `<span class="badge ${roleBadge.className}" title="${esc(roleBadge.title)}">${esc(roleBadge.label)}</span>`
       + (credentialBadge ? `<span class="badge ${credentialBadge.className}" title="${esc(credentialBadge.title)}">${esc(credentialBadge.label)}</span>` : '');
-    return i18nText("ui.71d1cc58a024","<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\">{p26}</div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>本周额度</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">词库</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">个性化</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">登录有效期</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}详情</button>\n          {p25}\n        </div>\n      </div>\n    </div>",[a.user_id===CUR_ID?'active':'',valid?'':'invalid',a.user_id,esc(ini),esc(a.nickname||a.email||a.user_id),esc(a.nickname||a.email||a.user_id),a.user_id===CUR_ID?i18nText("ui.a24c68ed3038","<span class=\"badge current\">当前账号</span>"):'',a.nickname&&a.nickname!==a.email?`<div class="email" title="${esc(a.email||a.user_id)}">${esc(a.email||a.user_id)}</div>`:'',roleBadge.className,esc(roleBadge.title),esc(roleBadge.label),live.loading?i18nText("ui.f950213ab758","读取中…"):(ok?nfmt(used)+' / '+nfmt(lim):i18nText("ui.b33315080b04","额度未知")),pcls,p,ok?p+'%':'—',live._err?`<div class="settings-note" style="margin-top:8px;color:var(--${serviceError?'warn':'err'})">${esc(live._err)}</div>`:'',live.loading?'…':(live.dict_count??'-'),live.loading?'…':(Math.round((live.personal?.total_learning_ratio||0)*100)+'%'),daysCls,daysTxt,a.snapshot_mismatch?'':(a.has_snapshot&&a.snapshot_ok!==false?'has':''),a.snapshot_mismatch?esc(i18nText("ui.32ed63581820","串号: 内容是 ")+(a.snapshot_email||a.snapshot_user_id||'')) : '',cloudOnly?i18nText("ui.9d15bf538ac4","云端待启用"):(a.snapshot_mismatch?i18nText("ui.ac180ec8fe52","快照串号"):(a.has_snapshot?i18nText("ui.a72a5c6c4397","快照已存"):i18nText("ui.6f7ac64334cd","未存快照"))),a.user_id,uiIcon('details'),cloudOnly
+    const picked=typeof SELECTED!=='undefined' && SELECTED.has(a.user_id);
+    const selectedClass=[a.user_id===CUR_ID?'active':'',picked?'selected':''].filter(Boolean).join(' ');
+    const card=i18nText("ui.71d1cc58a024","<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\">{p26}</div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>本周额度</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">词库</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">个性化</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">登录有效期</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}详情</button>\n          {p25}\n        </div>\n      </div>\n    </div>",[selectedClass,valid?'':'invalid',a.user_id,esc(ini),esc(a.nickname||a.email||a.user_id),esc(a.nickname||a.email||a.user_id),a.user_id===CUR_ID?i18nText("ui.a24c68ed3038","<span class=\"badge current\">当前账号</span>"):'',a.nickname&&a.nickname!==a.email?`<div class="email" title="${esc(a.email||a.user_id)}">${esc(a.email||a.user_id)}</div>`:'',roleBadge.className,esc(roleBadge.title),esc(roleBadge.label),live.loading?i18nText("ui.f950213ab758","读取中…"):(ok?nfmt(used)+' / '+nfmt(lim):i18nText("ui.b33315080b04","额度未知")),pcls,p,ok?p+'%':'—',live._err?`<div class="settings-note" style="margin-top:8px;color:var(--${serviceError?'warn':'err'})">${esc(live._err)}</div>`:'',live.loading?'…':(live.dict_count??'-'),live.loading?'…':(Math.round((live.personal?.total_learning_ratio||0)*100)+'%'),daysCls,daysTxt,a.snapshot_mismatch?'':(a.has_snapshot&&a.snapshot_ok!==false?'has':''),a.snapshot_mismatch?esc(i18nText("ui.32ed63581820","串号: 内容是 ")+(a.snapshot_email||a.snapshot_user_id||'')) : '',cloudOnly?i18nText("ui.9d15bf538ac4","云端待启用"):(a.snapshot_mismatch?i18nText("ui.ac180ec8fe52","快照串号"):(a.has_snapshot?i18nText("ui.a72a5c6c4397","快照已存"):i18nText("ui.6f7ac64334cd","未存快照"))),a.user_id,uiIcon('details'),cloudOnly
             ? i18nText("ui.96d3cd7e317e","<button class=\"btn small primary\" onclick=\"event.stopPropagation();activateAccount('{p0}')\">在此设备启用</button>",[a.user_id])
             : `${credentialBroken?`<button class="btn small" onclick="event.stopPropagation();recaptureCredential('${a.user_id}')">${uiIcon('switch')}${i18nText("ui.da8bc9ddf11f","重新收录凭据")}</button>`:''}<button class="btn small switch-btn ${a.user_id===CUR_ID?'current-action':''}" onclick="event.stopPropagation();switchTo('${a.user_id}')" ${a.has_snapshot&&a.snapshot_ok!==false?'':'disabled'}>${uiIcon('switch')}${a.user_id===CUR_ID?i18nText("ui.aba0af2679a2","重新切换"):i18nText("ui.2f116b7d1c18","切换")}</button>`,badges]);
+    const check=`<label class="card-check" onclick="event.stopPropagation()"><input type="checkbox" aria-label="${esc(i18nText("ui.0cc95c81a49b","选择这个账号"))}" ${picked?'checked':''} onchange="toggleAccountSelect('${a.user_id}', this.checked)"></label>`;
+    return card.replace('>', '>' + check);
   }).join('');
+  if (typeof updateBatchBar === 'function') updateBatchBar();
 }
 
 async function openDetail(id){

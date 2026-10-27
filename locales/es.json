@@ -420,7 +420,7 @@
   "ui.2a4a4de8068b": "Manual",
   "ui.4afad877551a": "Automático",
   "ui.1a8e887b0ceb": "<div class=\"empty\" style=\"padding:20px\">Cargando el diccionario…</div>",
-  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\"><span class=\"badge {p8}\" title=\"{p9}\">{p10}</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>Cuota semanal</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">Diccionario</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">Personalización</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">Validez de la sesión</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}Detalles</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
+  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\">{p26}</div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>Cuota semanal</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">Diccionario</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">Personalización</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">Validez de la sesión</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}Detalles</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
   "ui.a24c68ed3038": "<span class=\"badge current\">Cuenta actual</span>",
   "ui.32ed63581820": "Cruzada: el contenido es ",
   "ui.6f7ac64334cd": "Sin instantánea",
@@ -1232,5 +1232,17 @@
   "ui.fc103a1de890": "Error al recapturar: ",
   "ui.3723db96422e": "Typeless no ha iniciado sesión en esta cuenta. Cambia a ella y vuelve a recapturar.",
   "ui.b3284ca7c30f": "Recapturar credenciales de «",
-  "ui.419f9a2f4760": "»?\n\nTypeless se reiniciará brevemente para leer la sesión actual. Asegúrate de haber iniciado sesión en esta cuenta."
+  "ui.419f9a2f4760": "»?\n\nTypeless se reiniciará brevemente para leer la sesión actual. Asegúrate de haber iniciado sesión en esta cuenta.",
+  "ui.64e7381168ab": "Seleccionar todo en esta lista",
+  "ui.df1d957ac470": "Seleccionar no válidas",
+  "ui.78e0b7f7e95a": "Quitar seleccionadas",
+  "ui.38fa352bf0b3": "Quitar cuentas no válidas",
+  "ui.51d85df24ab2": "{p0} seleccionadas · {p1} no válidas",
+  "ui.f0650ea14927": "¿Quitar estas {p0} cuentas del gestor?\n{p1}\n\nSi la sincronización de cuentas está activa, los otros dispositivos también quitan estos registros. No se elimina la cuenta de Typeless.",
+  "ui.5af2e2db4770": "Estas {p0} cuentas tienen credenciales no válidas y se quitarán:\n{p1}\n\nLas cuentas que siguen válidas se conservan. Si la sincronización está activa, los otros dispositivos también las quitan. No se elimina la cuenta de Typeless.",
+  "ui.18b5fb80d969": "Se quitaron {p0} cuentas",
+  "ui.5f13e5fc17da": "No hay cuentas con credenciales no válidas",
+  "ui.c1c31d8866cc": "El estado de las cuentas aún se está cargando. Vuelve a quitar las no válidas dentro de un momento.",
+  "ui.78e243e1e60a": "Selecciona primero las cuentas que quieres quitar",
+  "ui.0cc95c81a49b": "Seleccionar esta cuenta"
 }

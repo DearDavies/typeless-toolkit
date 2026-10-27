@@ -420,7 +420,7 @@
   "ui.2a4a4de8068b": "Elle",
   "ui.4afad877551a": "Otomatik",
   "ui.1a8e887b0ceb": "<div class=\"empty\" style=\"padding:20px\">Sözlük yükleniyor…</div>",
-  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\"><span class=\"badge {p8}\" title=\"{p9}\">{p10}</span>\n          </div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>Bu haftaki kota</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">Sözlük</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">Kişiselleştirme</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">Oturum geçerlilik süresi</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}Ayrıntılar</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
+  "ui.71d1cc58a024": "<div class=\"card {p0} {p1}\" onclick=\"openDetail('{p2}')\">\n      <div class=\"chead\">\n        <div class=\"avatar\">{p3}</div>\n        <div class=\"who\"><div class=\"account-title\"><div class=\"nick\" title=\"{p4}\">{p5}</div>{p6}</div>{p7}\n          <div class=\"account-badges\">{p26}</div>\n        </div>\n      </div>\n      <div class=\"quota\">\n        <div class=\"qtop\"><span>Bu haftaki kota</span><b>{p11}</b></div>\n        <div class=\"quota-meter\"><div class=\"bar {p12}\"><i style=\"width:{p13}%\"></i></div><span class=\"quota-percent\">{p14}</span></div>\n        {p15}\n      </div>\n      <div class=\"mini\">\n        <div class=\"m\"><div class=\"k\">Sözlük</div><div class=\"v\">{p16}</div></div>\n        <div class=\"m\"><div class=\"k\">Kişiselleştirme</div><div class=\"v\">{p17}</div></div>\n        <div class=\"m\"><div class=\"k\">Oturum geçerlilik süresi</div><div class=\"v {p18}\">{p19}</div></div>\n      </div>\n      <div class=\"cfoot\">\n        <span class=\"snap {p20}\" title=\"{p21}\"><span class=\"d\"></span>{p22}</span>\n        <div class=\"acts\">\n          <button class=\"btn small\" onclick=\"event.stopPropagation();openDetail('{p23}')\">{p24}Ayrıntılar</button>\n          {p25}\n        </div>\n      </div>\n    </div>",
   "ui.a24c68ed3038": "<span class=\"badge current\">Mevcut hesap</span>",
   "ui.32ed63581820": "Uyuşmuyor: içerik ",
   "ui.6f7ac64334cd": "Oturum kopyası yok",
@@ -1232,5 +1232,17 @@
   "ui.fc103a1de890": "Yeniden alma başarısız: ",
   "ui.3723db96422e": "Typeless bu hesapta oturum açmamış. Önce bu hesaba geçin, sonra yeniden alın.",
   "ui.b3284ca7c30f": "“",
-  "ui.419f9a2f4760": "” için oturum bilgileri yeniden alınsın mı?\n\nGeçerli oturumu okumak için Typeless kısa süreliğine yeniden başlatılacak. Bu hesapta oturum açtığınızdan emin olun."
+  "ui.419f9a2f4760": "” için oturum bilgileri yeniden alınsın mı?\n\nGeçerli oturumu okumak için Typeless kısa süreliğine yeniden başlatılacak. Bu hesapta oturum açtığınızdan emin olun.",
+  "ui.64e7381168ab": "Bu listedekilerin tümünü seç",
+  "ui.df1d957ac470": "Geçersizleri seç",
+  "ui.78e0b7f7e95a": "Seçilenleri kaldır",
+  "ui.38fa352bf0b3": "Geçersiz hesapları kaldır",
+  "ui.51d85df24ab2": "{p0} seçili · {p1} geçersiz",
+  "ui.f0650ea14927": "Bu {p0} hesap yönetici kaydından kaldırılsın mı?\n{p1}\n\nHesap eşitleme açıksa diğer cihazlar da bu kayıtları kaldırır. Typeless hesabının kendisi silinmez.",
+  "ui.5af2e2db4770": "Kimlik bilgisi geçersiz olan bu {p0} hesap kaldırılacak:\n{p1}\n\nHâlâ geçerli hesaplar kalır. Eşitleme açıksa diğer cihazlar da bunları kaldırır. Typeless hesabının kendisi silinmez.",
+  "ui.18b5fb80d969": "{p0} hesap kaldırıldı",
+  "ui.5f13e5fc17da": "Kimlik bilgisi geçersiz hesap yok",
+  "ui.c1c31d8866cc": "Hesap durumu hâlâ okunuyor. Geçersiz hesapları biraz sonra yeniden kaldırın.",
+  "ui.78e243e1e60a": "Önce kaldırılacak hesapları seçin",
+  "ui.0cc95c81a49b": "Bu hesabı seç"
 }
